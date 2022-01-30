@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+
+  #Postgresql Service
+  nj-db:
+    image: postgres
+    container_name: nj-node-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nj
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: nathanjms_api
+    volumes:
+      - ./postgres-data:/postgresql/data
+    ports:
+      - '5433:5432'
