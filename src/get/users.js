@@ -1,20 +1,25 @@
 import { pool } from "../../config";
 
-const getGroupId = async (firebaseId) => {
-  return await pool
+export const getGroupId = async (req, res, next) => {
+  if (!req?.query?.userId) {
+    res.status(404).json("User ID not input");
+    return;
+  }
+  let userId = Number(req?.query?.userId);
+  return pool
     .query(
-      `SELECT mg.id 
-        FROM movie_groups mg 
-        LEFT JOIN movie_group_members mgm on mgm.group_id = mg.id 
-        LEFT JOIN users u on mgm.user_id = u.id 
-        WHERE u.firebase_id = '${firebaseId}';`
+      `SELECT * 
+      FROM users
+      WHERE id = $1::int`,
+      [userId]
     )
     .then((result) => {
-      return result.rows[0].id;
+      if (result.rowCount == 0) {
+        return res.status(404).json("No User found with that ID");
+      }
+      return res.status(200).json(result.rows[0]);
     })
     .catch((err) => {
-      throw err;
+      next(err);
     });
 };
-
-export { getGroupId };
