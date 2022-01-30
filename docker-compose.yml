@@ -14,3 +14,15 @@ services:
       - ./postgres-data:/postgresql/data
     ports:
       - '5433:5432'
+
+  nodejs:
+    image: node
+    container_name: nodejs
+    restart: unless-stopped
+    user: "www-data:www-data"
+    ports:
+      - "3002:3002"
+    volumes:
+      - .:/usr/src/service
+    working_dir: /usr/src/service
+    command: npm run dev

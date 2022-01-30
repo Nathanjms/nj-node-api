@@ -5,8 +5,8 @@ require("dotenv").config();
 const isProduction = process.env.NODE_ENV === "production";
 
 const pool = new Pool({
-  host: 'localhost',
-  port: 5433,
+  host: 'nj-node-db',
+  port: 5432,
   user: 'nj',
   password: 'dev',
   database: 'nathanjms_api',
