@@ -9,9 +9,9 @@ services:
     environment:
       POSTGRES_USER: nj
       POSTGRES_PASSWORD: dev
-      POSTGRES_DB: nathanjms_api
     volumes:
       - ./postgres-data:/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '5433:5432'
 
