@@ -16,7 +16,7 @@ app.route("/").get(index);
 app.route("/api/users").get(getGroupId);
 
 // Start server
-const port = process?.env?.APP_PORT ? process.env.APP_PORT : 3002;
+const port = 3002;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
