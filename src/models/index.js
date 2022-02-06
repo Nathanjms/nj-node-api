@@ -1,6 +1,6 @@
 const { connectionString } = require("../config/db.config.js");
-const userModel = require("../models/user.model.js");
-const roleModel = require("../models/role.model.js");
+const { userModel } = require("../models/user.model.js");
+const { roleModel } = require("../models/role.model.js");
 
 const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize(connectionString);
