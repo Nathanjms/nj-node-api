@@ -8,30 +8,34 @@ const checkDuplicateUsernameOrEmail = (req, res, next) => {
     where: {
       username: req.body.username,
     },
-  }).then((user) => {
-    if (user) {
-      res.status(400).send({
-        message: "Failed! Username is already in use!",
-      });
-      return;
-    }
-
-    // Email
-    User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    }).then((user) => {
+  })
+    .then((user) => {
       if (user) {
         res.status(400).send({
-          message: "Failed! Email is already in use!",
+          message: "Failed! Username is already in use!",
         });
         return;
       }
 
-      next();
+      // Email
+      User.findOne({
+        where: {
+          email: req.body.email,
+        },
+      }).then((user) => {
+        if (user) {
+          res.status(400).send({
+            message: "Failed! Email is already in use!",
+          });
+          return;
+        }
+
+        next();
+      });
+    })
+    .catch((err) => {
+      return next(err);
     });
-  });
 };
 
 const checkRolesExisted = (req, res, next) => {
