@@ -1,12 +1,10 @@
 import express from "express";
 import cors from "cors";
-import { index } from "./get/index";
-import { getGroupId } from "./get/users";
 
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3000",
 };
 
 app.use(cors(corsOptions));
@@ -15,10 +13,44 @@ app.use(express.json());
 // Parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+/* DB & Model */
+
+const db = require("./models");
+const Role = db.role;
+db.sequelize.sync().then(() => {
+  console.log('Drop and Resync Db');
+  initial();
+});
+
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "moderator"
+  });
+ 
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
 
 /* Routes */
-app.route("/").get(index);
-app.route("/api/users").get(getGroupId);
+
+// Basic route
+app.route("/").get((request, response) => {
+  response
+    .status(200)
+    .json({ greeting: "Welcome to my Node API!", author: "Nathan James" });
+});
+
+// Routes from route configs
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 
 // Start server
