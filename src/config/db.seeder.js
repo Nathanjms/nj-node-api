@@ -1,6 +1,8 @@
 /* DB & Model */
 const db = require("../models");
 
+const forceDB = Boolean(process?.env?.npm_config_force_db);
+
 const Role = db.role;
 
 const initial = () => {
@@ -20,7 +22,7 @@ const initial = () => {
   });
 };
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: forceDB }).then(() => {
   console.log("Drop and Resync Db");
   initial();
 });
