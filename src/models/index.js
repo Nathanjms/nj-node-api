@@ -1,42 +1,27 @@
-const { connectionString, isProduction } = require("../config/db.config.js");
-const { userModel } = require("../models/user.model.js");
-const { roleModel } = require("../models/role.model.js");
+const { pg } = require("../config/db.config");
 
-const { Sequelize } = require("sequelize");
-const sequelize = new Sequelize(connectionString);
-
-const testConnection = async (sequelize) => {
+const getNames = async (req, res, next) => {
   try {
-    await db.sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    const result = await pg.from("users").pluck("name");
+    res.json({
+      users: result,
+    });
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
-    console.log(connectionString);
+    next(error);
   }
 };
 
-const db = {};
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-if (!isProduction) {
-  testConnection(db.sequelize);
-}
-
-db.user = userModel(sequelize, Sequelize);
-db.role = roleModel(sequelize, Sequelize);
-
-db.role.belongsToMany(db.user, {
-  through: "user_roles",
-  foreignKey: "roleId",
-  otherKey: "userId",
-});
-db.user.belongsToMany(db.role, {
-  through: "user_roles",
-  foreignKey: "userId",
-  otherKey: "roleId",
-});
-
-db.ROLES = ["user", "admin", "moderator"];
-
-module.exports = db;
+const getEmails = async (req, res, next) => {
+  try {
+    const result = await pg.from("users").pluck("email");
+    res.json({
+      users: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = {
+  getNames,
+  getEmails,
+};
