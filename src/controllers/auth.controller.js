@@ -1,58 +1,35 @@
-const db = require("../models");
-const config = require("../config/auth.config");
-const User = db.user;
-const Role = db.role;
-
-const Op = db.Sequelize.Op;
+const User = require("../models/User");
+const { body, validationResult } = require("express-validator");
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res, next) => {
-  // Save User to Database
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
-  })
-    .then((user) => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles,
-            },
-          },
-        }).then((roles) => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
-        });
-      }
+exports.signup = async (req, res, next) => {
+  // Finds the validation errors in this request and wraps them in an object with handy functions
+
+  await User.insertUser(
+    req.body.name,
+    req.body.email,
+    bcrypt.hashSync(req.body.password, 8)
+  )
+    .then(() => {
+      res.send({ message: "User was registered successfully!" });
     })
     .catch((err) => {
-      res.status(500).send({ message: err.message });
+      next(err);
     });
 };
 
-exports.signin = (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  })
+exports.signin = (req, res, next) => {
+  User.getUserFromEmail(req.body.email)
     .then((user) => {
-      if (!user) {
+      console.log(user);
+      if (!user || user.length === 0) {
         return res.status(404).send({ message: "User Not found." });
       }
-
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
+      console.log(req.body.password, user);
+      let passwordIsValid = bcrypt.compareSync(
+        req?.body?.password,
         user.password
       );
 
@@ -63,25 +40,30 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
-      });
-
-      var authorities = [];
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
-        res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          accessToken: token,
-        });
-      });
+      res.status(200).send(user);
     })
     .catch((err) => {
-      res.status(500).send({ message: err.message });
+      next(err);
     });
+  //     var token = jwt.sign({ id: user.id }, config.secret, {
+  //       expiresIn: 86400, // 24 hours
+  //     });
+
+  //     var authorities = [];
+  //     user.getRoles().then((roles) => {
+  //       for (let i = 0; i < roles.length; i++) {
+  //         authorities.push("ROLE_" + roles[i].name.toUpperCase());
+  //       }
+  //       res.status(200).send({
+  //         id: user.id,
+  //         username: user.username,
+  //         email: user.email,
+  //         roles: authorities,
+  //         accessToken: token,
+  //       });
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({ message: err.message });
+  //   });
 };
