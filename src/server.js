@@ -27,7 +27,7 @@ app.get("/test", Test.getNames);
 app.get("/test2", Test.getEmails);
 
 // // Routes from route configs
-// require('./routes/auth.routes')(app);
+require('./routes/auth.routes')(app);
 // require('./routes/user.routes')(app);
 
 // Start server
