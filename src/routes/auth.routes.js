@@ -3,9 +3,6 @@ const controller = require("../controllers/auth.controller");
 const { checkSchema } = require("express-validator");
 const { registrationSchema } = require("../schemas/registrationSchema");
 const { signInSchema } = require("../schemas/signInSchema");
-const {
-  verifyNoValidationErrors,
-} = require("../middleware/verifyNoValidationErrors");
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -19,12 +16,8 @@ module.exports = (app) => {
   app.post(
     "/api/auth/signup",
     checkSchema(registrationSchema),
-    (req, res, next) => {
-      verifyNoValidationErrors(req, res, next, controller.signup);
-    }
+    controller.signup
   );
 
-  app.post("/api/auth/signin", checkSchema(signInSchema), (req, res, next) => {
-    verifyNoValidationErrors(req, res, next, controller.signin);
-  });
+  app.post("/api/auth/signin", checkSchema(signInSchema), controller.signin);
 };

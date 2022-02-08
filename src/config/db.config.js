@@ -11,5 +11,6 @@ const pg = require("knex")({
     max: 10,
   },
 });
+console.log('dbconfig accessed')
 
 module.exports = { pg, isProduction };
