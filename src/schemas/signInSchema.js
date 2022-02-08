@@ -1,12 +1,19 @@
 const signInSchema = {
   password: {
+    trim: true,
     notEmpty: true,
-    errorMessage: "password is required",
+    errorMessage: "A Password is required",
   },
   email: {
-    notEmpty: true,
-    isEmail: true,
-    errorMessage: "Must be a valid Email",
+    trim: true,
+    notEmpty: {
+      errorMessage: "Email is required",
+      bail: true,
+    },
+    isEmail: {
+      errorMessage: "Must be a valid Email",
+      bail: true,
+    },
   },
 };
 
