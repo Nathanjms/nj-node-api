@@ -7,11 +7,6 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res, next) => {
-  let inputErrs = verifyNoValidationErrors(req, res);
-  if (!inputErrs.success) {
-    return res.status(400).send({ errors: inputErrs.errors });
-  }
-
   console.log(bcrypt.hashSync(req.body.password, 8));
   await User.insertUser(
     req.body.name,
@@ -27,7 +22,6 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.signin = (req, res, next) => {
-  verifyNoValidationErrors(req, res);
   User.getUserFromEmail(req.body.email)
     .then((user) => {
       console.log(user);
