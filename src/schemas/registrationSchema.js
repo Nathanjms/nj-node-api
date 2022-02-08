@@ -1,12 +1,17 @@
 const registrationSchema = {
   name: {
-    notEmpty: true,
+    notEmpty: {
+      errorMessage: 'Name is required'
+    },
     trim: true,
     escape: true,
-    errorMessage: "Name must not be empty",
   },
   password: {
-    notEmpty: true,
+    trim: true,
+    notEmpty: {
+      errorMessage: "Password is required",
+      bail: true,
+    },
     isLength: {
       options: {
         min: 6,
@@ -14,24 +19,34 @@ const registrationSchema = {
     },
     errorMessage: "Password must be greater than 5 characters",
   },
-  password_confirm: {
-    notEmpty: true,
+  passwordConfirm: {
+    trim: true,
+    notEmpty: {
+      errorMessage: "Password confirmation is required",
+      bail: true,
+    },
     custom: {
-      options: (password_confirm, { req }) => {
+      options: (passwordConfirm, { req }) => {
         const password = req.body.password;
         // If password and confirm password not same
         // don't allow to sign up and throw error
-        if (password !== password_confirm) {
-          throw new Error("Passwords must be same");
+        if (password !== passwordConfirm) {
+          throw new Error("Password and password confirmation must match");
         }
-        return Promise.resolve();
+        return true;
       },
     },
   },
   email: {
-    notEmpty: true,
-    isEmail: true,
-    errorMessage: "Must be a valid Email",
+    trim: true,
+    notEmpty: {
+      errorMessage: "Email is required",
+      bail: true,
+    },
+    isEmail: {
+      bail: true,
+      errorMessage: "Must be a valid Email",
+    },
   },
 };
 
