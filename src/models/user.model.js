@@ -16,5 +16,9 @@ exports.insertUser = async (name, email, password) => {
 };
 
 exports.getUserFromEmail = async (email) => {
-  return await pg("users").first().from("users").where("email", email);
+  return await pg()
+    .select(["name", "email", "id", "password"])
+    .from("users")
+    .where("email", email)
+    .first();
 };
