@@ -1,7 +1,7 @@
 const registrationSchema = {
   name: {
     notEmpty: {
-      errorMessage: 'Name is required'
+      errorMessage: "Name is required",
     },
     trim: true,
     escape: true,
@@ -46,6 +46,17 @@ const registrationSchema = {
     isEmail: {
       errorMessage: "Must be a valid Email",
       bail: true,
+    },
+  },
+  superSecretSignUpKey: {
+    trim: true,
+    notEmpty: {
+      errorMessage: "SignUp key is required",
+      bail: true,
+    },
+    equals: {
+      options: process.env.SIGN_UP_KEY,
+      errorMessage: "Invalid SignUp Key",
     },
   },
 };
