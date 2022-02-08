@@ -44,8 +44,8 @@ const registrationSchema = {
       bail: true,
     },
     isEmail: {
-      bail: true,
       errorMessage: "Must be a valid Email",
+      bail: true,
     },
   },
 };
