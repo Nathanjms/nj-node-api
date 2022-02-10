@@ -23,14 +23,18 @@ exports.getUserFromEmail = async (email) => {
   return await pg(table)
     .select(selectColumns)
     .from("users")
-    .where("email", email)
-    .first();
+    .where({
+      "email": email,
+      "deleted_at": null
+    }).first();
 };
 
 exports.getUserFromId = async (id) => {
   return await pg(table)
     .select(selectColumns)
     .from("users")
-    .where("id", id)
-    .first();
+    .where({
+      "id": id,
+      "deleted_at": null
+    }).first();
 };
