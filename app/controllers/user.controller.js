@@ -1,15 +1,14 @@
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
-};
+const User = require("../models/user.model");
 
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
 
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
-};
-
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
+exports.userInfo = async (req, res, next) => {
+  try {
+    let user = await User.getUserFromEmail(req.userId);
+    if (!user) {
+      return res.status(404).send({ error_message: "User not found."} );
+    }
+    return res.status(200).send(user);
+  } catch (error) {
+    next(error)
+  }
 };

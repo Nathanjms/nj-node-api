@@ -2,6 +2,8 @@ const { pg } = require("../config/db.config");
 
 const table = "users";
 
+const selectColumns = ["name", "email", "id", "password"];
+
 exports.insertUser = async (name, email, password) => {
   await pg(table)
     .insert({
@@ -19,8 +21,16 @@ exports.insertUser = async (name, email, password) => {
 
 exports.getUserFromEmail = async (email) => {
   return await pg(table)
-    .select(["name", "email", "id", "password"])
+    .select(selectColumns)
     .from("users")
     .where("email", email)
+    .first();
+};
+
+exports.getUserFromId = async (id) => {
+  return await pg(table)
+    .select(selectColumns)
+    .from("users")
+    .where("id", id)
     .first();
 };
