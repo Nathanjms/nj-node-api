@@ -21,5 +21,5 @@ module.exports = (app) => {
     controller.signup
   );
 
-  app.post("/api/auth/signin", checkSchema(signInSchema), controller.signin);
+  app.post("/api/auth/signin", [checkSchema(signInSchema), verifyNoValidationErrors], controller.signin);
 };
