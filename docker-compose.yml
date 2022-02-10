@@ -9,20 +9,9 @@ services:
     environment:
       POSTGRES_USER: nj
       POSTGRES_PASSWORD: dev
+      POSTGRES_DATABSE: nathanjms_api
     volumes:
       - ./postgres-data:/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '5433:5432'
-
-  nodejs:
-    image: node
-    container_name: nodejs
-    restart: unless-stopped
-    user: "www-data:www-data"
-    ports:
-      - "80:3002"
-    volumes:
-      - .:/usr/src/service
-    working_dir: /usr/src/service
-    command: npm run dev
