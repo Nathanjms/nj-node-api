@@ -37,8 +37,9 @@ exports.signin = async (req, res, next) => {
         message: "Invalid Password!",
       });
     }
+    let expiresIn = 86400; // 24 hours
     var token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 86400, // 24 hours
+      expiresIn: expiresIn,
     });
     return res.status(200).send({ token: token, expiresIn: expiresIn });
   } catch (error) {
