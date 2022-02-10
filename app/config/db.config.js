@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-const isProduction = process.env.NODE_ENV === "production";
-
 const { connection } = require("../../knexfile");
 
 const pg = require("knex")({
@@ -13,4 +11,4 @@ const pg = require("knex")({
   },
 });
 
-module.exports = { pg, isProduction };
+module.exports = { pg };
