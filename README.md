@@ -21,3 +21,9 @@ _Note: This repository is a work in progress._
         1. Add the database credentials to the `.env` file
 
 I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API calls.
+
+### Migrations [WIP]
+
+- Run `npx knex migrate:up` to migrate the database.
+- TODO: DB seeding with `npx knex seed:run`
+    - See: [Guide](https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261)
