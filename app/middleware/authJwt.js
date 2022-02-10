@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
-const db = require("../models");
-const User = db.user;
+const config = require("../config/auth.config");
 
-const verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+
+exports.verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  let token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(403).send({
@@ -19,83 +19,6 @@ const verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
-    next();
+    next()
   });
 };
-
-const isAdmin = (req, res, next) => {
-  User.findByPk(req.userId)
-    .then((user) => {
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            next();
-            return;
-          }
-        }
-
-        res.status(403).send({
-          message: "Require Admin Role!",
-        });
-        return;
-      });
-    })
-    .catch((err) => {
-      return next(err);
-    });
-};
-
-const isModerator = (req, res, next) => {
-  User.findByPk(req.userId)
-    .then((user) => {
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "moderator") {
-            next();
-            return;
-          }
-        }
-
-        res.status(403).send({
-          message: "Require Moderator Role!",
-        });
-      });
-    })
-    .catch((err) => {
-      return next(err);
-    });
-};
-
-const isModeratorOrAdmin = (req, res, next) => {
-  User.findByPk(req.userId)
-    .then((user) => {
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "moderator") {
-            next();
-            return;
-          }
-
-          if (roles[i].name === "admin") {
-            next();
-            return;
-          }
-        }
-
-        res.status(403).send({
-          message: "Require Moderator or Admin Role!",
-        });
-      });
-    })
-    .catch((err) => {
-      return next(err);
-    });
-};
-
-const authJwt = {
-  verifyToken,
-  isAdmin,
-  isModerator,
-  isModeratorOrAdmin,
-};
-module.exports = authJwt;
