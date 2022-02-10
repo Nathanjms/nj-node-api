@@ -40,7 +40,7 @@ exports.signin = async (req, res, next) => {
     var token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: 86400, // 24 hours
     });
-    return res.status(200).send({ token: token, name: user.name });
+    return res.status(200).send({ token: token, expiresIn: expiresIn });
   } catch (error) {
     next(error);
   }
