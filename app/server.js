@@ -28,7 +28,7 @@ app.get("/api/test", (req, res, next) => {
 
 // Routes from route configs
 require("./routes/auth.routes")(app);
-// require('./routes/user.routes')(app);
+require('./routes/user.routes')(app);
 
 // Start server
 let port = process?.env?.PORT ? process?.env?.PORT : 3002;
