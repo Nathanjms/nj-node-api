@@ -12,10 +12,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // Parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-// Handle 404
-app.use(function (req, res) {
-  res.send({ error_message: "Endpoint does not exist" }, 404);
-});
 
 /* Routes */
 
@@ -29,6 +25,10 @@ app.route("/").get((request, response) => {
 // Routes from route configs
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
+// Handle 404
+app.all("*", (req, res) => {
+  res.status(404).send({ error_message: "Endpoint does not exist" });
+});
 
 // Start server
 let port = process?.env?.PORT ? process.env.PORT : 3002;
