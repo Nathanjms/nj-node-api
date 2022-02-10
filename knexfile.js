@@ -14,7 +14,7 @@ module.exports = {
   client: "postgresql",
   connection: {
     connectionString: connectionString,
-    ssl: { rejectUnauthorized: isProduction },
+    ssl: isProduction ? { rejectUnauthorized: false } : false
   },
   pool: {
     min: 2,
