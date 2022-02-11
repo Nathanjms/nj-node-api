@@ -2,7 +2,7 @@ const { pg } = require("../config/db.config");
 
 const table = "users";
 
-const selectColumns = ["name", "email", "id", "password"];
+const selectColumns = ["name", "email"];
 
 exports.insertUser = async (name, email, password) => {
   await pg(table)
