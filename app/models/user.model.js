@@ -2,7 +2,7 @@ const { pg } = require("../config/db.config");
 
 const table = "users";
 
-const selectColumns = ["name", "email"];
+const selectColumns = ["name", "email", "password"];
 
 exports.insertUser = async (name, email, password) => {
   await pg(table)
@@ -23,7 +23,7 @@ exports.getUserFromEmail = async (email, includeDeleted = false) => {
   let user = pg(table)
     .select(selectColumns)
     .from("users")
-    .where("email", email)
+    .where("email", email);
 
   if (!includeDeleted) {
     user = user.where("deleted_at", null);
@@ -33,14 +33,11 @@ exports.getUserFromEmail = async (email, includeDeleted = false) => {
 };
 
 exports.getUserFromId = async (id, includeDeleted = false) => {
-  let user = pg(table)
-    .select(selectColumns)
-    .from("users")
-    .where(id, id)
+  let user = pg(table).select(selectColumns).from("users").where("id", id);
 
   if (!includeDeleted) {
     user = user.where("deleted_at", null);
   }
-  
+
   return await user.first();
 };
