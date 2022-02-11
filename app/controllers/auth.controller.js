@@ -5,7 +5,7 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res, next) => {
   try {
-    let existingUser = await User.getUserFromEmail(req.body.email);
+    let existingUser = await User.getUserFromEmail(req.body.email, true);
     if (existingUser) {
       return res.status(401).send({ message: "Email Address already exists" });
     }

@@ -19,22 +19,28 @@ exports.insertUser = async (name, email, password) => {
     });
 };
 
-exports.getUserFromEmail = async (email) => {
-  return await pg(table)
+exports.getUserFromEmail = async (email, includeDeleted = false) => {
+  let user = pg(table)
     .select(selectColumns)
     .from("users")
-    .where({
-      "email": email,
-      "deleted_at": null
-    }).first();
+    .where("email", email)
+
+  if (!includeDeleted) {
+    user = user.where("deleted_at", null);
+  }
+
+  return await user.first();
 };
 
-exports.getUserFromId = async (id) => {
-  return await pg(table)
+exports.getUserFromId = async (id, includeDeleted = false) => {
+  let user = pg(table)
     .select(selectColumns)
     .from("users")
-    .where({
-      "id": id,
-      "deleted_at": null
-    }).first();
+    .where(id, id)
+
+  if (!includeDeleted) {
+    user = user.where("deleted_at", null);
+  }
+  
+  return await user.first();
 };
