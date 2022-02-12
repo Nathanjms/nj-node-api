@@ -1,6 +1,12 @@
-## NJ Node API
+# NJ Node API
 
 _Note: This repository is a work in progress._
+
+## Setup
+
+I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API calls.
+
+### Initial Setup
 
 1. Run `npm install`
 1. Run `cp .env.example .env`
@@ -12,23 +18,19 @@ _Note: This repository is a work in progress._
     1. Go to `http://localhost:3002` to see the app.
     1. The credentials from docker are the ones filled in in the `.env.example`, so the database connection should work immediately.
 
-I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API calls.
-
 ### Migrations
 
-- Run `npx knex migrate:latest` to migrate the database tables.
-- Run `npx knex seed:run` to obtain users and movies.
+1. Run `npx knex migrate:latest` to migrate the database tables.
+1. Run `npx knex seed:run` to obtain users and movies.
 
 ### Authentication
 
-- _Ensure migrations have been run!_
-- Go to the login endpoint (`/api/login`) with the body:
-
-    ```json
-        {
-            email: "nj1@test.com",
-            password: "123456"
-        }
-    ```
-
+1. _Ensure migrations have been run!_
+1. Go to the login endpoint (`/api/login`) with the body:
+```json
+{
+    "email": "nj1@test.com",
+    "password": "123456"
+}
+```
 - Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
