@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const config = require("../config/auth.config");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+require("dotenv").config();
+
 
 exports.register = async (req, res, next) => {
   try {
@@ -22,7 +24,7 @@ exports.register = async (req, res, next) => {
 
 exports.signIn = async (req, res, next) => {
   try {
-    let expiresIn = 86400; // 24 hours
+    let expiresIn = process?.env?.JWT_EXPIRY ? process.env.JWT_EXPIRY : 86400; // Get expiry from .env file
     var token = jwt.sign({ id: req.userId }, config.secret, {
       expiresIn: expiresIn,
     });
