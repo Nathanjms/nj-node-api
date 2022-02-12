@@ -26,7 +26,7 @@ I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API cal
 ### Authentication
 
 1. _Ensure migrations have been run!_
-1. Go to the login endpoint (`/api/login`) with the body:
+2. Go to the login endpoint (`/api/login`) with the body:
 
 ```json
 {
@@ -35,4 +35,4 @@ I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API cal
 }
 ```
 
-- Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
+3. Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
