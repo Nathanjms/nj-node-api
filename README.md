@@ -14,8 +14,21 @@ _Note: This repository is a work in progress._
 
 I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API calls.
 
-### Migrations [WIP]
+### Migrations
 
-- Run `npx knex migrate:up` to migrate the database.
-- TODO: DB seeding with `npx knex seed:run`
-    - See: [Guide](https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261)
+- Run `npx knex migrate:latest` to migrate the database tables.
+- Run `npx knex seed:run` to obtain users and movies.
+
+### Authentication
+
+- _Ensure migrations have been run!_
+- Go to the login endpoint (`/api/login`) with the body:
+
+    ```json
+        {
+            email: "nj1@test.com",
+            password: "123456"
+        }
+    ```
+
+- Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
