@@ -1,20 +1,20 @@
 const { pg } = require("../config/db.config");
 
-const tableAlias = "ug";
-const table = `user_groups AS ${tableAlias}`;
+const table = `user_groups`;
 
-const selectColumns = ["id", "name"].map((element) => {
-  return tableAlias + "." + element;
+const columnWhitelist = ["id", "name"];
+const selectColumns = columnWhitelist.map((element) => {
+  return table + "." + element;
 });
 
 exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
   let userMovieGroups = pg("users_groups AS ugs")
-    .join(table, "ugs.group_id", "=", "ug.id")
+    .join(table, "ugs.group_id", "=", `${table}.id`)
     .select(selectColumns)
     .where("ugs.user_id", userId);
 
   if (!includeDeleted) {
-    userMovieGroups = userMovieGroups.where(`${tableAlias}.deleted_at`, null);
+    userMovieGroups = userMovieGroups.where(`${table}.deleted_at`, null);
   }
 
   return await userMovieGroups;

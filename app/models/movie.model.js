@@ -2,7 +2,7 @@ const { pg } = require("../config/db.config");
 
 const table = "movies";
 
-const selectColumns = [
+const columnWhitelist = [
   "id",
   "title",
   "tmdb_id",
@@ -11,10 +11,12 @@ const selectColumns = [
   "seen",
 ];
 
+const selectColumns = columnWhitelist.map((element) => {
+  return table + "." + element;
+});
+
 exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
-  let movies = pg(table)
-    .select(selectColumns)
-    .where("user_id", userId);
+  let movies = pg(table).select(selectColumns).where("user_id", userId);
 
   if (!includeDeleted) {
     movies = movies.where("deleted_at", null);
