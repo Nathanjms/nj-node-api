@@ -9,6 +9,8 @@ exports.up = function (knex) {
     table.string("tmdb_id", 255).notNullable();
     table.string("poster_path", 255);
     table.integer("user_id").index().defaultTo(null).references('id').inTable('users');
+    table.integer("rating");
+    table.boolean("seen").defaultTo(false).notNullable();
     table.timestamps(true, true);
     table.timestamp('deleted_at').defaultTo(null);
   })
