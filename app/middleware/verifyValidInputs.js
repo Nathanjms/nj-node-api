@@ -9,6 +9,5 @@ exports.verifyValidInputs = (req, res, next) => {
     });
   }
 
-  console.log(errors);
   next();
 };

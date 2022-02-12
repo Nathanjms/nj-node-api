@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const { connection } = require("../../knexfile");
 
 const pg = require("knex")({
