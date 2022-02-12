@@ -1,25 +1,25 @@
-const controller = require("../controllers/auth.controller");
+const authController = require("../controllers/auth.controller");
 const { checkSchema } = require("express-validator");
 const { registrationSchema } = require("../schemas/registrationSchema");
 const { signInSchema } = require("../schemas/signInSchema");
-const {
-  verifyNoValidationErrors,
-} = require("../middleware/verifyNoValidationErrors");
+const { verifyValidInputs } = require("../middleware/verifyValidInputs");
+const verifySignIn = require("../middleware/verifySignIn");
+
+const checkAndValidate = (schema) => {
+  return [checkSchema(schema), verifyValidInputs];
+};
 
 module.exports = (app) => {
-  app.use((req, res, next) => {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
-
   app.post(
-    "/api/auth/signup",
-    [checkSchema(registrationSchema), verifyNoValidationErrors],
-    controller.signup
+    "/api/auth/register",
+    checkAndValidate(registrationSchema),
+    authController.register
   );
 
-  app.post("/api/auth/signin", [checkSchema(signInSchema), verifyNoValidationErrors], controller.signin);
+  app.post(
+    "/api/auth/signin",
+    checkAndValidate(signInSchema),
+    verifySignIn.checkUserCredentials,
+    authController.signIn
+  );
 };

@@ -2,8 +2,10 @@ const User = require("../models/user.model");
 const config = require("../config/auth.config");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+require("dotenv").config();
 
-exports.signup = async (req, res, next) => {
+
+exports.register = async (req, res, next) => {
   try {
     let existingUser = await User.getUserFromEmail(req.body.email, true);
     if (existingUser) {
@@ -20,25 +22,10 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.signin = async (req, res, next) => {
+exports.signIn = async (req, res, next) => {
   try {
-    let user = await User.getUserFromEmail(req.body.email);
-    if (!user) {
-      return res.status(404).send({ message: "User Not found." });
-    }
-    let passwordIsValid = bcrypt.compareSync(
-      req?.body?.password,
-      user.password
-    );
-
-    if (!passwordIsValid) {
-      return res.status(401).send({
-        accessToken: null,
-        message: "Invalid Password!",
-      });
-    }
-    let expiresIn = 86400; // 24 hours
-    var token = jwt.sign({ id: user.id }, config.secret, {
+    let expiresIn = process?.env?.JWT_EXPIRY ? process.env.JWT_EXPIRY : 86400; // Get expiry from .env file
+    var token = jwt.sign({ id: req.userId }, config.secret, {
       expiresIn: expiresIn,
     });
     return res.status(200).send({ token: token, expiresIn: expiresIn });

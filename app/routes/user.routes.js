@@ -1,6 +1,9 @@
 const controller = require("../controllers/user.controller");
-const { verifyToken } = require("../middleware/authJwt");
+const authJWT = require("../middleware/authJwt");
 
 module.exports = (app) => {
-  app.get("/api/user-info", [verifyToken], controller.userInfo);
+  // All routes in here will need valid JWT
+  app.use(authJWT.verifyToken);
+
+  app.get("/api/user-info", controller.userInfo);
 };
