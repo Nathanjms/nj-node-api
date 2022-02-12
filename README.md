@@ -26,13 +26,13 @@ I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API cal
 ### Authentication
 
 1. _Ensure migrations have been run!_
-2. Go to the login endpoint (`/api/login`) with the body:
+1. Go to the login endpoint (`/api/login`) with the body:
 
-```json
-{
-  "email": "nj1@test.com",
-  "password": "123456"
-}
-```
+   ```json
+   {
+     "email": "nj1@test.com",
+     "password": "123456"
+   }
+   ```
 
-3. Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
+1. Copy the returned JWT and use this as your Bearer token for any queries requiring authentication.
