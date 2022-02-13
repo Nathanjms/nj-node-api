@@ -1,5 +1,9 @@
 const { pg } = require("../config/db.config");
 
+const isNotDeleted = (queryBuilder, columnName = "deleted_at") => {
+  queryBuilder.where(columnName, null);
+};
+
 const table = "movies";
 
 const columnWhitelist = [
@@ -20,7 +24,7 @@ exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
   let movies = pg(table).select(selectColumns).where("user_id", userId);
 
   if (!includeDeleted) {
-    movies = movies.where("deleted_at", null);
+    movies = movies.modify(isNotDeleted);
   }
 
   return await movies;
@@ -30,7 +34,7 @@ exports.getMoviesByGroupId = async (groupId, includeDeleted = false) => {
   let movies = pg(table).select(selectColumns).where("group_id", groupId);
 
   if (!includeDeleted) {
-    movies = movies.where("deleted_at", null);
+    movies = movies.modify(isNotDeleted);
   }
 
   return await movies;

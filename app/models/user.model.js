@@ -7,6 +7,10 @@ const selectColumns = columnWhitelist.map((element) => {
   return table + "." + element;
 });
 
+const isNotDeleted = (queryBuilder, columnName = "deleted_at") => {
+  queryBuilder.where(columnName, null);
+};
+
 exports.insertUser = async (name, email, password) => {
   await pg(table)
     .insert({
@@ -29,7 +33,7 @@ exports.getUserFromEmail = async (email, includeDeleted = false) => {
     .where("email", email);
 
   if (!includeDeleted) {
-    user = user.where("deleted_at", null);
+    user = user.modify(isNotDeleted);
   }
 
   return await user.first();
@@ -39,7 +43,7 @@ exports.getUserFromId = async (id, includeDeleted = false) => {
   let user = pg(table).select(selectColumns).from("users").where("id", id);
 
   if (!includeDeleted) {
-    user = user.where("deleted_at", null);
+    user = user.modify(isNotDeleted);
   }
 
   return await user.first();

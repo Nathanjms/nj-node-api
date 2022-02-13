@@ -7,6 +7,10 @@ const selectColumns = columnWhitelist.map((element) => {
   return table + "." + element;
 });
 
+const isNotDeleted = (queryBuilder, columnName = "deleted_at") => {
+  queryBuilder.where(columnName, null);
+};
+
 exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
   let userMovieGroups = pg("users_groups AS ugs")
     .join(table, "ugs.group_id", "=", `${table}.id`)
@@ -14,7 +18,10 @@ exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
     .where("ugs.user_id", userId);
 
   if (!includeDeleted) {
-    userMovieGroups = userMovieGroups.where(`${table}.deleted_at`, null);
+    userMovieGroups = userMovieGroups.modify(
+      isNotDeleted,
+      `${table}.deleted_at`
+    );
   }
 
   return await userMovieGroups;
