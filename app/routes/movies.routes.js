@@ -8,5 +8,4 @@ module.exports = (app) => {
 
   app.get("/api/movies", movieController.index);
   app.get("/api/movies/groups", userMovieGroupController.index);
-
 };
