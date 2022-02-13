@@ -12,6 +12,9 @@ const movieGroupStoreSchema = {
   tmdbId: {
     optional: true,
     trim: true,
+    notEmpty: {
+      errorMessage: "TMDB must not be empty",
+    },
     isLength: {
       options: { max: 255 },
       errorMessage: "TMID must be no more than 255 characters.",
@@ -20,6 +23,9 @@ const movieGroupStoreSchema = {
   posterPath: {
     optional: true,
     trim: true,
+    notEmpty: {
+      errorMessage: "Poster path must not be empty",
+    },
     isLength: {
       options: { max: 255 },
       errorMessage: "Poster path must be no more than 255 characters.",
