@@ -8,3 +8,28 @@ exports.index = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.store = async (req, res, next) => {
+  try {
+    // Create group
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.leaveGroup = async (req, res, next) => {
+  try {
+    // Delete user's entry in the group
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.delete = async (req, res, next) => {
+  try {
+    // Unsure if this will be added, or just allow leaving above
+  } catch (error) {
+    next(error);
+  }
+};
+

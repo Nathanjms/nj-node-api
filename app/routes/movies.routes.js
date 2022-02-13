@@ -15,5 +15,17 @@ module.exports = (app) => {
     verifyGroupIfSet,
     movieController.index
   );
+
+  // TODO: Add appropriate methods & middlewares:
+  app.get("/api/movies/groups/:movieId", userMovieGroupController.show);
+  app.post("/api/movies/groups", userMovieGroupController.store);
+  app.patch("/api/movies/mark-seen", userMovieGroupController.markSeen);
+  app.patch("/api/movies/review", userMovieGroupController.review);
+  app.patch("/api/movies/delete", userMovieGroupController.delete);
+
+  // TODO: Add appropriate methods & middlewares:
   app.get("/api/movies/groups", userMovieGroupController.index);
+  app.post("/api/movies/groups", userMovieGroupController.store);
+  app.patch("/api/movies/groups", userMovieGroupController.leaveGroup);
+
 };
