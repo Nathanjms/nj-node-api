@@ -1,10 +1,17 @@
 const UserMovieGroup = require("../models/user_movie_group.model");
 
-exports.verifyUserInMovieGroup = async (req, res, next) => {
+const verifyGroupIfSet = async (req, res, next) => {
   try {
-    let userMovieGroup = await UserMovieGroup.getUserGroupFromUserIdAndGroupId(
+    console.log(req.query);
+    if (!req.query.groupId) {
+      // GroupID not input, so passes.
+      next();
+      return;
+    }
+
+    let userMovieGroup = await UserMovieGroup.getByUserIdAndGroupId(
       req.userId,
-      req.body.groupId
+      req.query.groupId
     );
     if (!userMovieGroup) {
       res.status(401).send({
@@ -14,9 +21,11 @@ exports.verifyUserInMovieGroup = async (req, res, next) => {
       return;
     }
     // Add the group ID to the request body for reference in controller.
-    req.groupId = req.body.groupId;
+    req.groupId = req.query.groupId;
     next();
   } catch (error) {
     next(error);
   }
 };
+
+module.exports = { verifyGroupIfSet };

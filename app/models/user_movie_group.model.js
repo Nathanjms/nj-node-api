@@ -19,3 +19,14 @@ exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
 
   return await userMovieGroups;
 };
+
+exports.getByUserIdAndGroupId = async (userId, groupId) => {
+  return await pg("users_groups AS ugs")
+    .join(table, "ugs.group_id", "=", `${table}.id`)
+    .select(selectColumns)
+    .where({
+      user_id: userId,
+      group_id: groupId,
+    })
+    .first();
+};
