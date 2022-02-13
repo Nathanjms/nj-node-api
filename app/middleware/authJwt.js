@@ -18,8 +18,6 @@ exports.verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
-    console.log("set req.userId...");
-    console.log(req.userId);
     next();
   });
 };

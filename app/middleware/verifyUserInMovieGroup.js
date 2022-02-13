@@ -2,7 +2,6 @@ const UserMovieGroup = require("../models/user_movie_group.model");
 
 const verifyGroupIfSet = async (req, res, next) => {
   try {
-    console.log(req.query);
     if (!req.query.groupId) {
       // GroupID not input, so passes.
       next();
