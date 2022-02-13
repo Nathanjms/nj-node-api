@@ -2,15 +2,18 @@ const UserMovieGroup = require("../models/user_movie_group.model");
 
 const verifyGroupIfSet = async (req, res, next) => {
   try {
-    if (!req.query.groupId) {
+    if (!req.query.groupId && !req.body.groupId) {
       // GroupID not input, so passes.
       next();
       return;
     }
 
+    // Account for being passed in either body or header.
+    req.groupId = req.query.groupId ? req.query.groupId : req.body.groupId;
+
     let userMovieGroup = await UserMovieGroup.getByUserIdAndGroupId(
       req.userId,
-      req.query.groupId
+      req.groupId
     );
     if (!userMovieGroup) {
       res.status(401).send({
@@ -19,8 +22,6 @@ const verifyGroupIfSet = async (req, res, next) => {
       });
       return;
     }
-    // Add the group ID to the request body for reference in controller.
-    req.groupId = req.query.groupId;
     next();
   } catch (error) {
     next(error);
