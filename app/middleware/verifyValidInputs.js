@@ -5,7 +5,7 @@ const verifyValidInputs = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     return res.status(400).send({
-      errors: errors.array(),
+      validationErrors: errors.array(),
     });
   }
 
