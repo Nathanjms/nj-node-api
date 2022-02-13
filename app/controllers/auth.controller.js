@@ -24,7 +24,7 @@ exports.register = async (req, res, next) => {
 
 exports.signIn = async (req, res, next) => {
   try {
-    let expiresIn = process?.env?.JWT_EXPIRY ? process.env.JWT_EXPIRY : 86400; // Get expiry from .env file
+    let expiresIn = process?.env?.JWT_EXPIRY ? parseInt(process.env.JWT_EXPIRY) : 86400; // Get expiry from .env file
     var token = jwt.sign({ id: req.userId }, config.secret, {
       expiresIn: expiresIn,
     });
