@@ -14,6 +14,8 @@ exports.index = async (req, res, next) => {
 exports.store = async (req, res, next) => {
   try {
     // Create group
+    // Add user to group
+    // Return success and user's new groups.
     return res.send({ message: "store" });
   } catch (error) {
     next(error);
