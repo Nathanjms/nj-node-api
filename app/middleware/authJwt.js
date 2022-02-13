@@ -18,6 +18,7 @@ exports.verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
+    // TODO: Check if user account ahs been deleted (or is at login only acceptable)?
     next();
   });
 };
