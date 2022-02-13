@@ -1,13 +1,8 @@
 const authController = require("../controllers/auth.controller");
-const { checkSchema } = require("express-validator");
 const { registrationSchema } = require("../schemas/registrationSchema");
 const { signInSchema } = require("../schemas/signInSchema");
-const { verifyValidInputs } = require("../middleware/verifyValidInputs");
+const { checkAndValidate } = require("../middleware/verifyValidInputs");
 const verifySignIn = require("../middleware/verifySignIn");
-
-const checkAndValidate = (schema) => {
-  return [checkSchema(schema), verifyValidInputs];
-};
 
 module.exports = (app) => {
   app.post(

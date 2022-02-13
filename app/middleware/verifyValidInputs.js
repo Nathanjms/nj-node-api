@@ -1,13 +1,19 @@
-const { validationResult } = require("express-validator");
+const { checkSchema, validationResult } = require("express-validator");
 
-exports.verifyValidInputs = (req, res, next) => {
+const verifyValidInputs = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(400).send({
-      errors: errors.array(),
+      validationErrors: errors.array(),
     });
   }
 
   next();
 };
+
+const checkAndValidate = (schema) => {
+  return [checkSchema(schema), verifyValidInputs];
+};
+
+module.exports = { verifyValidInputs, checkAndValidate };

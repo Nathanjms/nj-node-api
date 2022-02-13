@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 
-
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   let token = authHeader && authHeader.split(" ")[1];
@@ -19,6 +18,7 @@ exports.verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
-    next()
+    // TODO: Check if user account ahs been deleted (or is at login only acceptable)?
+    next();
   });
 };
