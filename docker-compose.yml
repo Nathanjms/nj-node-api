@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: nj
       POSTGRES_PASSWORD: dev
-      POSTGRES_DATABSE: nathanjms_api
+      POSTGRES_DB: nathanjms_api
     volumes:
       - ./postgres-data:/postgresql/data
     ports:
