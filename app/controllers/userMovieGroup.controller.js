@@ -33,7 +33,7 @@ exports.store = async (req, res, next) => {
 
 exports.joinGroup = async (req, res, next) => {
   try {
-    // Verify password then add user if successful
+    await UserMovieGroup.addUserToGroup(req.userId, req.groupId);
     return res.send({ message: "Join" });
   } catch (error) {
     next(error);
