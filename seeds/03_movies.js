@@ -12,7 +12,6 @@ exports.seed = function (knex) {
       for (let i = 1; i <= 10; i++) {
         let userId = Math.floor(Math.random() * 10 + 1);
         insertArray.push({
-          id: i,
           title: `Movie${i}`,
           tmdb_id: `1234567`,
           poster_path: `/test`,
