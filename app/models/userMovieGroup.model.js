@@ -56,3 +56,9 @@ exports.addUserToGroup = async (userId, groupId) => {
     group_id: groupId,
   });
 };
+
+exports.itemExists = async (groupId) => {
+  let result = await pg(table).where({ id: groupId }).count("id");
+  console.log(groupId, result[0]?.count)
+  return Number(result[0]?.count) > 0;
+};

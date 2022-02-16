@@ -40,6 +40,29 @@ const store = {
       },
     },
   },
-}
+};
 
-module.exports = { store };
+const join = {
+  groupId: {
+    isInt: true,
+    toInt: true,
+    notEmpty: true,
+    errorMessage: "Group ID is required",
+  },
+  password: {
+    trim: true,
+    notEmpty: true,
+    errorMessage: "A Password is required",
+  },
+};
+
+const leave = {
+  groupId: {
+    isInt: true,
+    toInt: true,
+    notEmpty: true,
+    errorMessage: "Group ID is required",
+  },
+};
+
+module.exports = { store, join, leave };

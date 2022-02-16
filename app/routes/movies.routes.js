@@ -1,7 +1,7 @@
 const movieController = require("../controllers/movie.controller");
 const userMovieGroupController = require("../controllers/userMovieGroup.controller");
 const authJWT = require("../middleware/authJwt");
-const { verifyGroupIfSet } = require("../middleware/verifyUserMovieGroup");
+const verifyUserMovieGroup = require("../middleware/verifyUserMovieGroup");
 const { checkAndValidateSchema } = require("../middleware/verifyValidInputs");
 const userMovieGroupSchemas = require("../schemas/userMovieGroupSchemas");
 const movieSchemas = require("../schemas/movieSchemas");
@@ -22,35 +22,29 @@ module.exports = (app) => {
     userMovieGroupController.store
   );
 
-  // // Join/Leave Group
-  // app.patch(
-  //   "/api/movies/groups/join",
-  //   checkAndValidateSchema(
-  //     /* Add new schema here */
-  //     userMovieGroupSchemas.store
-  //   ),
-  //   verifyGroupIfSet,
-  //   userMovieGroupController.joinGroup
-  // );
+  // Join Group
+  app.post(
+    "/api/movies/groups/join",
+    checkAndValidateSchema(userMovieGroupSchemas.join),
+    verifyUserMovieGroup.verifyGroupExists,
+    verifyUserMovieGroup.verifyUserNotInGroup,
+    userMovieGroupController.joinGroup
+  );
 
-  // // Join/Leave Group
-  // app.patch(
-  //   "/api/movies/groups/leave",
-  //   checkAndValidateSchema(
-  //     /* Add new schema here */
-  //     userMovieGroupSchemas.store
-  //   ),
-  //   verifyGroupIfSet,
-  //   userMovieGroupController.leaveGroup
-  // );
-  
+  // Join/Leave Group
+  app.patch(
+    "/api/movies/groups/leave",
+    checkAndValidateSchema(userMovieGroupSchemas.leave),
+    verifyUserMovieGroup.verifyGroupIfSet,
+    userMovieGroupController.leaveGroup
+  );
 
   /* Movies */
 
   app.get(
     "/api/movies",
     checkAndValidateSchema(movieSchemas.index),
-    verifyGroupIfSet,
+    verifyUserMovieGroup.verifyGroupIfSet,
     movieController.index
   );
   // TODO: Add appropriate methods & middlewares:

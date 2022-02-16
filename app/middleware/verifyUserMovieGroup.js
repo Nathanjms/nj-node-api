@@ -16,11 +16,10 @@ const verifyGroupIfSet = async (req, res, next) => {
       req.groupId
     );
     if (!userMovieGroup) {
-      res.status(401).send({
+      return res.status(401).send({
         error: true,
         message: "User is not in the group.",
       });
-      return;
     }
     next();
   } catch (error) {
@@ -28,4 +27,39 @@ const verifyGroupIfSet = async (req, res, next) => {
   }
 };
 
-module.exports = { verifyGroupIfSet };
+const verifyGroupExists = async (req, res, next) => {
+  try {
+    req.groupId = req.body.groupId;
+
+    let group = await UserMovieGroup.itemExists(req.groupId);
+    if (!group) {
+      return res.status(401).send({
+        error: true,
+        message: "Group does not exist.",
+      });
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verifyUserNotInGroup = async (req, res, next) => {
+  try {
+    let group = await UserMovieGroup.getByUserIdAndGroupId(
+      req.userId,
+      req.groupId
+    );
+    if (group) {
+      return res.status(401).send({
+        error: true,
+        message: "User already in group",
+      });
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { verifyGroupIfSet, verifyGroupExists, verifyUserNotInGroup };
