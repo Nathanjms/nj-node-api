@@ -1,4 +1,16 @@
-const movieGroupStoreSchema = {
+const index = {
+  groupId: {
+    in: ["query"],
+    optional: true,
+    isInt: {
+      errorMessage: "Group ID must be an integer.",
+      bail: true,
+    },
+    toInt: true,
+  },
+};
+
+const store = {
   title: {
     trim: true,
     notEmpty: {
@@ -40,4 +52,4 @@ const movieGroupStoreSchema = {
   },
 };
 
-module.exports = { movieGroupStoreSchema };
+module.exports = { index, store };
