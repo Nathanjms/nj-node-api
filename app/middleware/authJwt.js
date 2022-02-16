@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
+const User = require("../models/user.model");
+
 
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -17,8 +19,12 @@ exports.verifyToken = (req, res, next) => {
         message: "Unauthorized!",
       });
     }
+
+    let user = await User.getUserFromId(decoded.id);
+    if (!user) {
+      return res.status(403).send({ message: "User not found." });
+    }
     req.userId = decoded.id;
-    // TODO: Check if user account ahs been deleted (or is at login only acceptable)?
     next();
   });
 };
