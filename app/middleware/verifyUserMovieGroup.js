@@ -44,22 +44,26 @@ const verifyGroupExists = async (req, res, next) => {
   }
 };
 
-const verifyUserNotInGroup = async (req, res, next) => {
-  try {
-    let group = await UserMovieGroup.getByUserIdAndGroupId(
-      req.userId,
-      req.groupId
-    );
-    if (group) {
-      return res.status(401).send({
-        error: true,
-        message: "User already in group",
-      });
+const verifyUserGroupStatus = (inGroup) => {
+  return async (req, res, next) => {
+    try {
+      let group = await UserMovieGroup.getByUserIdAndGroupId(
+        req.userId,
+        req.groupId
+      );
+      // If the opposite status is passed than the user's status (eg. user isn't in group when they must be)
+      if (inGroup !== Boolean(group)) {
+        let conditional = !inGroup ? "already" : "not";
+        return res.status(401).send({
+          error: true,
+          message: `User is ${conditional} in this group`,
+        });
+      }
+      next();
+    } catch (error) {
+      next(error);
     }
-    next();
-  } catch (error) {
-    next(error);
-  }
+  };
 };
 
-module.exports = { verifyGroupIfSet, verifyGroupExists, verifyUserNotInGroup };
+module.exports = { verifyGroupIfSet, verifyGroupExists, verifyUserGroupStatus };

@@ -1,4 +1,5 @@
 const UserMovieGroup = require("../models/userMovieGroup.model");
+const Movie = require("../models/movie.model");
 const bcrypt = require("bcryptjs");
 
 exports.index = async (req, res, next) => {
@@ -43,6 +44,12 @@ exports.joinGroup = async (req, res, next) => {
 exports.leaveGroup = async (req, res, next) => {
   try {
     // Remove user, then delete group if empty (after deleting movies in group!)
+    await UserMovieGroup.removeUserFromGroup(req.userId, req.groupId);
+    let groupUserCount = await UserMovieGroup.countUsersInGroup(req.groupId);
+    if (!groupUserCount) {
+      await UserMovieGroup.remove(req.groupId)
+      await Movie.removeMoviesByGroupId(req.groupId)
+    }
     return res.send({ message: "Leave" });
   } catch (error) {
     next(error);

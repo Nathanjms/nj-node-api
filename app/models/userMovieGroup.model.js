@@ -7,24 +7,16 @@ const selectColumns = columnWhitelist.map((element) => {
   return table + "." + element;
 });
 
-const isNotDeleted = (queryBuilder, columnName = "deleted_at") => {
-  queryBuilder.where(columnName, null);
-};
-
 exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
-  let userMovieGroups = pg("users_groups AS ugs")
+  return await pg("users_groups AS ugs")
     .join(table, "ugs.group_id", "=", `${table}.id`)
     .select(selectColumns)
-    .where("ugs.user_id", userId);
-
-  if (!includeDeleted) {
-    userMovieGroups = userMovieGroups.modify(
-      isNotDeleted,
-      `${table}.deleted_at`
-    );
-  }
-
-  return await userMovieGroups;
+    .where("ugs.user_id", userId)
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ [`${table}.deleted_at`]: null });
+      }
+    });
 };
 
 exports.getByUserIdAndGroupId = async (userId, groupId) => {
@@ -57,8 +49,34 @@ exports.addUserToGroup = async (userId, groupId) => {
   });
 };
 
-exports.itemExists = async (groupId) => {
-  let result = await pg(table).where({ id: groupId }).count("id");
-  console.log(groupId, result[0]?.count)
-  return Number(result[0]?.count) > 0;
+exports.itemExists = async (groupId, includeDeleted = false) => {
+  let result = await pg(table)
+    .where({ id: groupId })
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ deleted_at: null });
+      }
+    })
+    .count("id")
+    .first();
+
+  return Number(result?.count) > 0;
+};
+
+exports.remove = async (groupId) => {
+  await pg(table).where({ id: groupId }).update({
+    deleted_at: "NOW()",
+  });
+};
+
+exports.removeUserFromGroup = async (userId) => {
+  return await pg("users_groups").where({ user_id: userId }).del();
+};
+
+exports.countUsersInGroup = async (groupId) => {
+  let result = await pg("users_groups")
+    .where({ group_id: groupId })
+    .count("id")
+    .first();
+  return Number(result?.count);
 };

@@ -27,15 +27,16 @@ module.exports = (app) => {
     "/api/movies/groups/join",
     checkAndValidateSchema(userMovieGroupSchemas.join),
     verifyUserMovieGroup.verifyGroupExists,
-    verifyUserMovieGroup.verifyUserNotInGroup,
+    verifyUserMovieGroup.verifyUserGroupStatus(false), // User not in the group
     userMovieGroupController.joinGroup
   );
 
-  // Join/Leave Group
-  app.patch(
+  // Leave Group
+  app.post(
     "/api/movies/groups/leave",
     checkAndValidateSchema(userMovieGroupSchemas.leave),
-    verifyUserMovieGroup.verifyGroupIfSet,
+    verifyUserMovieGroup.verifyGroupExists,
+    verifyUserMovieGroup.verifyUserGroupStatus(true), // User must be in the group
     userMovieGroupController.leaveGroup
   );
 

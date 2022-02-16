@@ -21,21 +21,29 @@ const selectColumns = columnWhitelist.map((element) => {
 });
 
 exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
-  let movies = pg(table).select(selectColumns).where("user_id", userId);
-
-  if (!includeDeleted) {
-    movies = movies.modify(isNotDeleted);
-  }
-
-  return await movies;
+  return await pg(table)
+    .select(selectColumns)
+    .where("user_id", userId)
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ [`${table}.deleted_at`]: null });
+      }
+    });
 };
 
 exports.getMoviesByGroupId = async (groupId, includeDeleted = false) => {
-  let movies = pg(table).select(selectColumns).where("group_id", groupId);
+  return await pg(table)
+    .select(selectColumns)
+    .where("group_id", groupId)
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ [`${table}.deleted_at`]: null });
+      }
+    });
+};
 
-  if (!includeDeleted) {
-    movies = movies.modify(isNotDeleted);
-  }
-
-  return await movies;
+exports.removeMoviesByGroupId = async (groupId) => {
+  return await pg(table)
+    .update({ deleted_at: "NOW()" })
+    .where({ group_id: groupId });
 };
