@@ -1,4 +1,6 @@
 const Movie = require("../models/movie.model");
+const bcrypt = require("bcryptjs");
+
 
 exports.index = async (req, res, next) => {
   try {

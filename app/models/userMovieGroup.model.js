@@ -37,3 +37,22 @@ exports.getByUserIdAndGroupId = async (userId, groupId) => {
     })
     .first();
 };
+
+exports.insertUserMovieGroup = async (name, password) => {
+  let result = await pg(table).insert(
+    {
+      name: name,
+      password: password,
+    },
+    "id"
+  );
+
+  return result[0]?.id;
+};
+
+exports.addUserToGroup = async (userId, groupId) => {
+  return await pg("users_groups").insert({
+    user_id: userId,
+    group_id: groupId,
+  });
+};

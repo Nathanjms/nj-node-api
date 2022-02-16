@@ -1,4 +1,4 @@
-const UserMovieGroup = require("../models/user_movie_group.model");
+const UserMovieGroup = require("../models/userMovieGroup.model");
 
 const verifyGroupIfSet = async (req, res, next) => {
   try {
