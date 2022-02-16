@@ -31,7 +31,7 @@ module.exports = (app) => {
       /* Add new schema here */
     }),
     verifyGroupIfSet,
-    userMovieGroupController.leaveGroup
+    userMovieGroupController.joinOrLeaveGroup
   );
 
   /* Movies */

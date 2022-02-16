@@ -22,10 +22,10 @@ exports.store = async (req, res, next) => {
   }
 };
 
-exports.leaveGroup = async (req, res, next) => {
+exports.joinOrLeaveGroup = async (req, res, next) => {
   try {
-    // Delete user's entry in the group
-    return res.send({ message: "leaveGroup" });
+    // Verify password then add user if successful
+    return res.send({ message: "Join/Leave" });
   } catch (error) {
     next(error);
   }
