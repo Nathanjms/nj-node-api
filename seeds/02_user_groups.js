@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -24,6 +26,7 @@ const buildDataArray = () => {
     insertArray.push({
       id: i,
       name: `Group ${i}`,
+      password: bcrypt.hashSync("123456", 8),
     });
   }
   return insertArray;

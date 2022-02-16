@@ -3,8 +3,8 @@ const userMovieGroupController = require("../controllers/user_movie_group.contro
 const authJWT = require("../middleware/authJwt");
 const { verifyGroupIfSet } = require("../middleware/verifyUserInMovieGroup");
 const { checkAndValidateSchema } = require("../middleware/verifyValidInputs");
-const { movieGroupStoreSchema } = require("../schemas/movieGroupSchemas");
-const { moviesIndexSchema } = require("../schemas/moviesIndexSchema");
+const userMovieGroupSchemas = require("../schemas/userMovieGroupSchemas");
+const { moviesIndexSchema } = require("../schemas/movieSchemas");
 
 module.exports = (app) => {
   // All routes in here will need valid JWT
@@ -13,12 +13,18 @@ module.exports = (app) => {
   /* Movie Groups */
 
   // TODO: Add appropriate methods & middlewares:
+
+  // Index
   app.get("/api/movies/groups", userMovieGroupController.index);
+
+  // Create Group
   app.post(
     "/api/movies/groups",
-    checkAndValidateSchema(movieGroupStoreSchema),
+    checkAndValidateSchema(userMovieGroupSchemas.store),
     userMovieGroupController.store
   );
+
+  // Join/Leave Group
   app.patch(
     "/api/movies/groups",
     checkAndValidateSchema({
