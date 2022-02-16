@@ -1,10 +1,10 @@
 const movieController = require("../controllers/movie.controller");
 const userMovieGroupController = require("../controllers/userMovieGroup.controller");
 const authJWT = require("../middleware/authJwt");
-const { verifyGroupIfSet } = require("../middleware/verifyUserInMovieGroup");
+const { verifyGroupIfSet } = require("../middleware/verifyUserMovieGroup");
 const { checkAndValidateSchema } = require("../middleware/verifyValidInputs");
 const userMovieGroupSchemas = require("../schemas/userMovieGroupSchemas");
-const { moviesIndexSchema } = require("../schemas/movieSchemas");
+const movieSchemas = require("../schemas/movieSchemas");
 
 module.exports = (app) => {
   // All routes in here will need valid JWT
@@ -49,7 +49,7 @@ module.exports = (app) => {
 
   app.get(
     "/api/movies",
-    checkAndValidateSchema(moviesIndexSchema),
+    checkAndValidateSchema(movieSchemas.index),
     verifyGroupIfSet,
     movieController.index
   );
