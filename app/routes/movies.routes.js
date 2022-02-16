@@ -42,16 +42,23 @@ module.exports = (app) => {
 
   /* Movies */
 
+  // Index
   app.get(
     "/api/movies",
     checkAndValidateSchema(movieSchemas.index),
     verifyUserMovieGroup.verifyGroupIfSet,
     movieController.index
   );
-  // TODO: Add appropriate methods & middlewares:
+  /* TODO: Add appropriate methods & middlewares to the below */
+
+  // Show method for specific movie
   app.get("/api/movies/:movieId", movieController.show);
+  // Add new Movie
   app.post("/api/movies", movieController.store);
+  // Mark movie as seen
   app.patch("/api/movies/mark-seen", movieController.markAsSeen);
+  // Review movie
   app.patch("/api/movies/review", movieController.review);
+  // mark movie as deletedsF
   app.patch("/api/movies/delete", movieController.delete);
 };

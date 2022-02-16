@@ -35,7 +35,7 @@ exports.store = async (req, res, next) => {
 exports.joinGroup = async (req, res, next) => {
   try {
     await UserMovieGroup.addUserToGroup(req.userId, req.groupId);
-    return res.send({ message: "Join" });
+    return res.send({ message: "Joined group Successfully" });
   } catch (error) {
     next(error);
   }
@@ -47,10 +47,10 @@ exports.leaveGroup = async (req, res, next) => {
     await UserMovieGroup.removeUserFromGroup(req.userId, req.groupId);
     let groupUserCount = await UserMovieGroup.countUsersInGroup(req.groupId);
     if (!groupUserCount) {
-      await UserMovieGroup.remove(req.groupId)
-      await Movie.removeMoviesByGroupId(req.groupId)
+      await UserMovieGroup.remove(req.groupId);
+      await Movie.removeMoviesByGroupId(req.groupId);
     }
-    return res.send({ message: "Leave" });
+    return res.send({ message: "Left Group Successfully" });
   } catch (error) {
     next(error);
   }
