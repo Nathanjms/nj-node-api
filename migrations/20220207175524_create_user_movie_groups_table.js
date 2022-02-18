@@ -4,13 +4,13 @@
  */
 exports.up = function (knex) {
   return knex.schema
-    .createTable("user_groups", (table) => {
+    .createTable("user_movie_groups", (table) => {
       table.increments("id");
       table.string("name", 255).notNullable();
       table.timestamps(true, true);
       table.timestamp("deleted_at").defaultTo(null);
     })
-    .createTable("users_groups", (table) => {
+    .createTable("users_movie_groups_link", (table) => {
       table.increments("id");
       table
         .integer("user_id")
@@ -23,7 +23,7 @@ exports.up = function (knex) {
         .index()
         .defaultTo(null)
         .references("id")
-        .inTable("user_groups");
+        .inTable("user_movie_groups");
     });
 };
 
@@ -32,5 +32,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable("users_groups").dropTable("user_groups");
+  return knex.schema.dropTable("users_movie_groups_link").dropTable("user_movie_groups");
 };

@@ -1,6 +1,6 @@
 const { pg } = require("../config/db.config");
 
-const table = `user_groups`;
+const table = `user_movie_groups`;
 
 const columnWhitelist = ["id", "name"];
 const selectColumns = columnWhitelist.map((element) => {
@@ -8,10 +8,10 @@ const selectColumns = columnWhitelist.map((element) => {
 });
 
 exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
-  return await pg("users_groups AS ugs")
-    .join(table, "ugs.group_id", "=", `${table}.id`)
+  return await pg("users_movie_groups_link AS l")
+    .join(table, "l.group_id", "=", `${table}.id`)
     .select(selectColumns)
-    .where("ugs.user_id", userId)
+    .where("l.user_id", userId)
     .modify((qB) => {
       if (!includeDeleted) {
         qB.where({ [`${table}.deleted_at`]: null });
@@ -20,8 +20,8 @@ exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
 };
 
 exports.getByUserIdAndGroupId = async (userId, groupId) => {
-  return await pg("users_groups AS ugs")
-    .join(table, "ugs.group_id", "=", `${table}.id`)
+  return await pg("users_movie_groups_link AS l")
+    .join(table, "l.group_id", "=", `${table}.id`)
     .select(selectColumns)
     .where({
       user_id: userId,
@@ -43,7 +43,7 @@ exports.insertUserMovieGroup = async (name, password) => {
 };
 
 exports.addUserToGroup = async (userId, groupId) => {
-  return await pg("users_groups").insert({
+  return await pg("users_movie_groups_link").insert({
     user_id: userId,
     group_id: groupId,
   });
@@ -70,11 +70,11 @@ exports.remove = async (groupId) => {
 };
 
 exports.removeUserFromGroup = async (userId) => {
-  return await pg("users_groups").where({ user_id: userId }).del();
+  return await pg("users_movie_groups_link").where({ user_id: userId }).del();
 };
 
 exports.countUsersInGroup = async (groupId) => {
-  let result = await pg("users_groups")
+  let result = await pg("users_movie_groups_link")
     .where({ group_id: groupId })
     .count("id")
     .first();

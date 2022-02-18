@@ -6,11 +6,11 @@ const bcrypt = require("bcryptjs");
  */
 exports.seed = async function (knex) {
   try {
-    await knex("user_groups").del();
+    await knex("user_movie_groups").del();
     let insertArray = buildDataArray();
-    await knex("user_groups").insert(insertArray);
-    await knex("users_groups").del();
-    return await knex("users_groups").insert({
+    await knex("user_movie_groups").insert(insertArray);
+    await knex("users_movie_groups_link").truncate();
+    await knex("users_movie_groups_link").insert({
       user_id: 1,
       group_id: 1,
     });
