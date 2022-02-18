@@ -4,7 +4,7 @@ _Note: This repository is a work in progress._
 
 ## Setup
 
-I recommend using [Insomnia](https://insomnia.rest/) to handle your rest APIcalls.
+I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API calls.
 
 ### Initial Setup
 
