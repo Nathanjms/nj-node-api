@@ -1,6 +1,6 @@
 const index = {
   groupId: {
-    in: ["query"],
+    in: ["query", "body"],
     optional: true,
     isInt: {
       errorMessage: "Group ID must be an integer.",
