@@ -3,11 +3,14 @@ const UserMovieGroup = require("../models/userMovieGroup.model");
 
 const canUserAccessMovie = async (req, res, next) => {
   try {
+    // Get movie from either param or body
+    let movieId = req?.params?.movieId ? req.params.movieId : req.body.movieId;
+
     // Get movie (and assign it to request for controller access)
-    req.movie = await Movie.getById(req.params.movieId);
+    req.movie = await Movie.getById(movieId);
 
     // Check if movie exists
-    if (!req?.movie) {
+    if (!req?.movie?.id) {
       return res.status(404).send({
         error: true,
         message: "Movie not found.",
@@ -15,7 +18,7 @@ const canUserAccessMovie = async (req, res, next) => {
     }
 
     // If the movie is created by user, they will always be able to access
-    if (Number(req.movie.created_by) === req.userId) {
+    if (Number(req?.movie.created_by) === req.userId) {
       return next();
     }
 

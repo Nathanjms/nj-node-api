@@ -55,3 +55,7 @@ exports.removeMoviesByGroupId = async (groupId) => {
     .update({ deleted_at: "NOW()" })
     .where({ group_id: groupId });
 };
+
+exports.update = async (id, updateObject) => {
+  return await pg(table).update(updateObject).where({ id: id });
+};

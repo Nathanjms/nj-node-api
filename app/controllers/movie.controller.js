@@ -16,7 +16,10 @@ exports.index = async (req, res, next) => {
 
 exports.show = async (req, res, next) => {
   try {
-    // Get details about one movie
+    // Return details about one movie (already have details from request)
+    if (!req?.movie) {
+      throw new Error("Movie not assigned correctly in middleware");
+    }
     return res.send({ movie: req.movie });
   } catch (error) {
     next(error);
@@ -34,8 +37,12 @@ exports.store = async (req, res, next) => {
 
 exports.markAsSeen = async (req, res, next) => {
   try {
+    if (!req?.movie) {
+      throw new Error("Movie not assigned correctly in middleware");
+    }
     // Mark Movie As Seen
-    return res.send({ message: "markAsSeen" });
+    await Movie.update(req?.movie?.id, { seen: req.body.seen });
+    return res.send({ success: true });
   } catch (error) {
     next(error);
   }

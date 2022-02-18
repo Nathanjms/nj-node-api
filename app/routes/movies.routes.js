@@ -62,9 +62,19 @@ module.exports = (app) => {
   // Add new Movie
   app.post("/api/movies", movieController.store);
   // Mark movie as seen
-  app.patch("/api/movies/mark-seen", movieController.markAsSeen);
+  app.patch(
+    "/api/movies/mark-seen",
+    checkAndValidateSchema(movieSchemas.markAsSeen),
+    verifyMovie.canUserAccessMovie,
+    movieController.markAsSeen
+  );
   // Review movie
-  app.patch("/api/movies/review", movieController.review);
-  // mark movie as deletedsF
+  app.patch(
+    "/api/movies/review",
+    checkAndValidateSchema(movieSchemas.review),
+    verifyMovie.canUserAccessMovie,
+    movieController.review
+  );
+  // mark movie as deleted
   app.patch("/api/movies/delete", movieController.delete);
 };
