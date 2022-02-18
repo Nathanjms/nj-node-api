@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-02-18T12:36:51.571Z
+__export_date: 2022-02-18T12:40:19.966Z
 __export_source: insomnia.desktop.app:v2021.7.2
 resources:
   - _id: req_c1dbea22a9b44af1a67723904cf72035
@@ -246,31 +246,31 @@ resources:
     _type: request_group
   - _id: req_d692c3f9084449dc925817536dd3fa54
     parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
-    modified: 1645187620122
+    modified: 1645187987621
     created: 1645187602813
     url: "{{ _.baseUrl }}/api/movies/groups"
     name: Create
     description: ""
     method: POST
     body:
-      mimeType: multipart/form-data
+      mimeType: application/x-www-form-urlencoded
       params:
         - id: pair_19413eb2118b432abc4908512f57c638
           name: name
-          value: ""
+          value: New Group
           description: ""
         - id: pair_314bbeb29a414e8ba8013a39f079d8f2
           name: password
-          value: ""
+          value: "123456"
           description: ""
         - id: pair_b197b5ef41794b63a23e35fcbc2da51b
           name: passwordConfirm
-          value: ""
+          value: "123456"
           description: ""
     parameters: []
     headers:
       - name: Content-Type
-        value: multipart/form-data
+        value: application/x-www-form-urlencoded
         id: pair_074edb85958740b3a2a968c29ce5bb23
     authentication:
       type: bearer
@@ -286,27 +286,27 @@ resources:
     _type: request
   - _id: req_0aa02f2d4e954b7b94db2380ff838010
     parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
-    modified: 1645187635021
+    modified: 1645187993996
     created: 1645187605547
     url: "{{ _.baseUrl }}/api/movies/groups/join"
     name: Join
     description: ""
     method: POST
     body:
-      mimeType: multipart/form-data
+      mimeType: application/x-www-form-urlencoded
       params:
         - id: pair_19413eb2118b432abc4908512f57c638
           name: groupId
-          value: ""
+          value: "2"
           description: ""
         - id: pair_1f0dfc89833e40518561db1191b8250e
           name: password
-          value: ""
+          value: "123456"
           description: ""
     parameters: []
     headers:
       - name: Content-Type
-        value: multipart/form-data
+        value: application/x-www-form-urlencoded
         id: pair_074edb85958740b3a2a968c29ce5bb23
     authentication:
       type: bearer
@@ -322,23 +322,23 @@ resources:
     _type: request
   - _id: req_8f89407233734d00b336c88697e36830
     parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
-    modified: 1645187648234
+    modified: 1645187997538
     created: 1645187607624
     url: "{{ _.baseUrl }}/api/movies/groups/leave"
     name: Leave
     description: ""
     method: POST
     body:
-      mimeType: multipart/form-data
+      mimeType: application/x-www-form-urlencoded
       params:
         - id: pair_19413eb2118b432abc4908512f57c638
-          name: ""
-          value: ""
+          name: groupId
+          value: "2"
           description: ""
     parameters: []
     headers:
       - name: Content-Type
-        value: multipart/form-data
+        value: application/x-www-form-urlencoded
         id: pair_074edb85958740b3a2a968c29ce5bb23
     authentication:
       type: bearer
@@ -385,7 +385,7 @@ resources:
     name: New Environment
     data:
       baseUrl: http://localhost:3002
-      authToken: AddTokenHere
+      authToken: BEARERTOKEN
       superSecretSignUpKey: signupdev
     dataPropertyOrder:
       "&":
