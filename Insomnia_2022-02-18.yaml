@@ -1,0 +1,398 @@
+_type: export
+__export_format: 4
+__export_date: 2022-02-18T12:36:51.571Z
+__export_source: insomnia.desktop.app:v2021.7.2
+resources:
+  - _id: req_c1dbea22a9b44af1a67723904cf72035
+    parentId: fld_db3fbb4f8019417486ece67b51a6cc6d
+    modified: 1645187411676
+    created: 1644708550477
+    url: "{{ _.baseUrl }}"
+    name: Root
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645187342385
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_db3fbb4f8019417486ece67b51a6cc6d
+    parentId: wrk_41af66e5d2f34470936be921b30b9717
+    modified: 1644708544464
+    created: 1644708544464
+    name: Dev
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1644708544464
+    _type: request_group
+  - _id: wrk_41af66e5d2f34470936be921b30b9717
+    parentId: null
+    modified: 1644708540331
+    created: 1644708540331
+    name: NJ Node
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_1aa2b83e70a8420c8ca3170e1489bab1
+    parentId: fld_1a4acaa6c184426097463f96169a69fa
+    modified: 1645187503832
+    created: 1644708567083
+    url: "{{ _.baseUrl }}/api/auth/register"
+    name: Register
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_9aaed4232d7846e0a3d1f256c2bfbf99
+          name: name
+          value: ""
+          description: ""
+        - id: pair_3e8bd853376b4becbf6b1f195277c786
+          name: password
+          value: ""
+          description: ""
+        - id: pair_c7f5883db19940378d076984913d34fe
+          name: passwordConfirm
+          value: ""
+          description: ""
+        - id: pair_2053fbeb8a044f2eb673839dc1ee56f8
+          name: superSecretSignUpKey
+          value: "{{ _.superSecretSignUpKey }}"
+          description: ""
+        - id: pair_2d528ae90eb7483fa944911681f67783
+          name: email
+          value: ""
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication: {}
+    metaSortKey: -1644548828466.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1a4acaa6c184426097463f96169a69fa
+    parentId: fld_db3fbb4f8019417486ece67b51a6cc6d
+    modified: 1645187342335
+    created: 1645187342335
+    name: Auth
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645187342335
+    _type: request_group
+  - _id: req_b08e10bd9b4543579df12c25f798ae4b
+    parentId: fld_1a4acaa6c184426097463f96169a69fa
+    modified: 1645187414767
+    created: 1644708594950
+    url: "{{ _.baseUrl }}/api/auth/signin"
+    name: Sign In
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_9aaed4232d7846e0a3d1f256c2bfbf99
+          name: email
+          value: nj1@test.com
+          description: ""
+        - id: pair_44ed135c6c7c44e38a3bca503e95fa36
+          name: password
+          value: "123456"
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication: {}
+    metaSortKey: -1644548828416.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2cee18d7048a44f28f959cd9986ad028
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645187593387
+    created: 1644708631640
+    url: "{{ _.baseUrl }}/api/movies"
+    name: Get User Movies
+    description: ""
+    method: GET
+    body:
+      mimeType: multipart/form-data
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644522208073.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_fcd04b56047d40e1870003bb208a4015
+    parentId: fld_db3fbb4f8019417486ece67b51a6cc6d
+    modified: 1645178606728
+    created: 1645178606728
+    name: Movies
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645178606728
+    _type: request_group
+  - _id: req_5d1b490d36d142cf9e9529aad5302e18
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645187580659
+    created: 1645187561824
+    url: "{{ _.baseUrl }}/api/movies"
+    name: Get Group Movies
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_ae47828d1dea4f5382aa4c9391cb4806
+          name: groupId
+          value: "1"
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644512225569.6094
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_439cc8734ac7412da689e989742e58d4
+    parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
+    modified: 1645187598076
+    created: 1644708715438
+    url: "{{ _.baseUrl }}/api/movies/groups"
+    name: Get User Movie Groups
+    description: ""
+    method: GET
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_19413eb2118b432abc4908512f57c638
+          name: ""
+          value: ""
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644502243065.8438
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5306c9fa071d4387b9bde03d68bb1fad
+    parentId: fld_db3fbb4f8019417486ece67b51a6cc6d
+    modified: 1645178562813
+    created: 1645178562813
+    name: User Movie Groups
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645178562813
+    _type: request_group
+  - _id: req_d692c3f9084449dc925817536dd3fa54
+    parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
+    modified: 1645187620122
+    created: 1645187602813
+    url: "{{ _.baseUrl }}/api/movies/groups"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_19413eb2118b432abc4908512f57c638
+          name: name
+          value: ""
+          description: ""
+        - id: pair_314bbeb29a414e8ba8013a39f079d8f2
+          name: password
+          value: ""
+          description: ""
+        - id: pair_b197b5ef41794b63a23e35fcbc2da51b
+          name: passwordConfirm
+          value: ""
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644498915397.9219
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0aa02f2d4e954b7b94db2380ff838010
+    parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
+    modified: 1645187635021
+    created: 1645187605547
+    url: "{{ _.baseUrl }}/api/movies/groups/join"
+    name: Join
+    description: ""
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_19413eb2118b432abc4908512f57c638
+          name: groupId
+          value: ""
+          description: ""
+        - id: pair_1f0dfc89833e40518561db1191b8250e
+          name: password
+          value: ""
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644497251563.961
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8f89407233734d00b336c88697e36830
+    parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
+    modified: 1645187648234
+    created: 1645187607624
+    url: "{{ _.baseUrl }}/api/movies/groups/leave"
+    name: Leave
+    description: ""
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_19413eb2118b432abc4908512f57c638
+          name: ""
+          value: ""
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644496419646.9805
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_977845981d048720c58268cc8c9ddd0695458421
+    parentId: wrk_41af66e5d2f34470936be921b30b9717
+    modified: 1645178644420
+    created: 1644708540344
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1644708540344
+    _type: environment
+  - _id: jar_977845981d048720c58268cc8c9ddd0695458421
+    parentId: wrk_41af66e5d2f34470936be921b30b9717
+    modified: 1644708540348
+    created: 1644708540348
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_74e98992c0f14a6e98fd4110edeb283a
+    parentId: wrk_41af66e5d2f34470936be921b30b9717
+    modified: 1644708540337
+    created: 1644708540337
+    fileName: NJ Node
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_773ceee8afb64bc68d5c0cb862efc7d0
+    parentId: env_977845981d048720c58268cc8c9ddd0695458421
+    modified: 1645187493943
+    created: 1645178648363
+    name: New Environment
+    data:
+      baseUrl: http://localhost:3002
+      authToken: AddTokenHere
+      superSecretSignUpKey: signupdev
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+        - authToken
+        - superSecretSignUpKey
+    color: null
+    isPrivate: true
+    metaSortKey: 1645178648363
+    _type: environment
