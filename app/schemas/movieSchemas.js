@@ -14,10 +14,10 @@ const show = {
   movieId: {
     in: ["params"],
     notEmpty: {
-      errorMessage: "Title is required",
+      errorMessage: "Movie ID is required",
     },
     isInt: {
-      errorMessage: "Group ID must be an integer.",
+      errorMessage: "Movie ID must be an integer.",
       bail: true,
     },
     toInt: true,
@@ -59,5 +59,9 @@ const store = {
     toInt: true,
   },
 };
+
+const markAsSeen = {
+
+}
 
 module.exports = { index, show, store };
