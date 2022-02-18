@@ -1,6 +1,4 @@
 const Movie = require("../models/movie.model");
-const bcrypt = require("bcryptjs");
-
 
 exports.index = async (req, res, next) => {
   try {
@@ -19,7 +17,7 @@ exports.index = async (req, res, next) => {
 exports.show = async (req, res, next) => {
   try {
     // Get details about one movie
-    return res.send({message: "show"});
+    return res.send({ movie: req.movie });
   } catch (error) {
     next(error);
   }
@@ -28,7 +26,7 @@ exports.show = async (req, res, next) => {
 exports.store = async (req, res, next) => {
   try {
     // Add new movie
-    return res.send({message: "store"});
+    return res.send({ message: "store" });
   } catch (error) {
     next(error);
   }
@@ -37,7 +35,7 @@ exports.store = async (req, res, next) => {
 exports.markAsSeen = async (req, res, next) => {
   try {
     // Mark Movie As Seen
-    return res.send({message: "markAsSeen"});
+    return res.send({ message: "markAsSeen" });
   } catch (error) {
     next(error);
   }
@@ -46,7 +44,7 @@ exports.markAsSeen = async (req, res, next) => {
 exports.review = async (req, res, next) => {
   try {
     // Review movie
-    return res.send({message: "review"});
+    return res.send({ message: "review" });
   } catch (error) {
     next(error);
   }
@@ -55,7 +53,7 @@ exports.review = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
   try {
     // Delete movie  (mark as deleted)
-    return res.send({message: "delete"});
+    return res.send({ message: "delete" });
   } catch (error) {
     next(error);
   }

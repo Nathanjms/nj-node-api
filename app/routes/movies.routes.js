@@ -2,6 +2,7 @@ const movieController = require("../controllers/movie.controller");
 const userMovieGroupController = require("../controllers/userMovieGroup.controller");
 const authJWT = require("../middleware/authJwt");
 const verifyUserMovieGroup = require("../middleware/verifyUserMovieGroup");
+const verifyMovie = require("../middleware/verifyMovie");
 const { checkAndValidateSchema } = require("../middleware/verifyValidInputs");
 const userMovieGroupSchemas = require("../schemas/userMovieGroupSchemas");
 const movieSchemas = require("../schemas/movieSchemas");
@@ -52,7 +53,12 @@ module.exports = (app) => {
   /* TODO: Add appropriate methods & middlewares to the below */
 
   // Show method for specific movie
-  app.get("/api/movies/:movieId", movieController.show);
+  app.get(
+    "/api/movies/:movieId",
+    checkAndValidateSchema(movieSchemas.show),
+    verifyMovie.canUserAccessMovie,
+    movieController.show
+  );
   // Add new Movie
   app.post("/api/movies", movieController.store);
   // Mark movie as seen

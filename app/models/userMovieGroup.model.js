@@ -19,6 +19,12 @@ exports.getUserMovieGroupsByUserId = async (userId, includeDeleted = false) => {
     });
 };
 
+exports.getUserMovieGroupIdsByUserId = async (userId) => {
+  return await pg("users_movie_groups_link AS l")
+    .where("l.user_id", userId)
+    .pluck("group_id");
+};
+
 exports.getByUserIdAndGroupId = async (userId, groupId) => {
   return await pg("users_movie_groups_link AS l")
     .join(table, "l.group_id", "=", `${table}.id`)

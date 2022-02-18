@@ -14,11 +14,19 @@ const columnWhitelist = [
   "rating",
   "seen",
   "group_id",
+  "created_by",
 ];
 
 const selectColumns = columnWhitelist.map((element) => {
   return table + "." + element;
 });
+
+exports.getById = async (id) => {
+  return await pg(table)
+    .select(selectColumns)
+    .where({ id: id, deleted_at: null })
+    .first();
+};
 
 exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
   return await pg(table)

@@ -10,6 +10,20 @@ const index = {
   },
 };
 
+const show = {
+  movieId: {
+    in: ["params"],
+    notEmpty: {
+      errorMessage: "Title is required",
+    },
+    isInt: {
+      errorMessage: "Group ID must be an integer.",
+      bail: true,
+    },
+    toInt: true,
+  },
+};
+
 const store = {
   title: {
     trim: true,
@@ -24,9 +38,6 @@ const store = {
   tmdbId: {
     optional: true,
     trim: true,
-    notEmpty: {
-      errorMessage: "TMDB must not be empty",
-    },
     isLength: {
       options: { max: 255 },
       errorMessage: "TMID must be no more than 255 characters.",
@@ -35,9 +46,6 @@ const store = {
   posterPath: {
     optional: true,
     trim: true,
-    notEmpty: {
-      errorMessage: "Poster path must not be empty",
-    },
     isLength: {
       options: { max: 255 },
       errorMessage: "Poster path must be no more than 255 characters.",
@@ -52,4 +60,4 @@ const store = {
   },
 };
 
-module.exports = { index, store };
+module.exports = { index, show, store };
