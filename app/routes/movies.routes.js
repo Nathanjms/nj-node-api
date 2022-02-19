@@ -60,7 +60,11 @@ module.exports = (app) => {
     movieController.show
   );
   // Add new Movie
-  app.post("/api/movies", movieController.store);
+  app.post(
+    "/api/movies",
+    checkAndValidateSchema(movieSchemas.store),
+    movieController.store
+  );
   // Mark movie as seen
   app.patch(
     "/api/movies/mark-seen",
