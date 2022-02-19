@@ -28,26 +28,49 @@ exports.getById = async (id) => {
     .first();
 };
 
-exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
+exports.getMovies = async (
+  userId,
+  groupId,
+  includeDeleted = false,
+  limit = 10,
+  offset = 0
+) => {
   return await pg(table)
     .select(selectColumns)
-    .where({ user_id: userId, group_id: null })
     .modify((qB) => {
+      // Handle either group or user ID
+      if (groupId) {
+        qB.where("group_id", groupId);
+      } else {
+        qB.where({ user_id: userId, group_id: null });
+      }
+      // Handle includeDeleted
       if (!includeDeleted) {
         qB.where({ [`${table}.deleted_at`]: null });
       }
-    });
+    })
+    .limit(limit)
+    .offset(offset);
 };
 
-exports.getMoviesByGroupId = async (groupId, includeDeleted = false) => {
-  return await pg(table)
-    .select(selectColumns)
-    .where("group_id", groupId)
-    .modify((qB) => {
-      if (!includeDeleted) {
-        qB.where({ [`${table}.deleted_at`]: null });
-      }
-    });
+exports.getMovieCount = async (userId, groupId, includeDeleted = false) => {
+  return (
+    await pg(table)
+      .modify((qB) => {
+        // Handle either group or user ID
+        if (groupId) {
+          qB.where({ group_id: groupId });
+        } else {
+          qB.where({ user_id: userId, group_id: null });
+        }
+        // Handle includeDeleted
+        if (!includeDeleted) {
+          qB.where({ [`${table}.deleted_at`]: null });
+        }
+      })
+      .count("id")
+      .first()
+  )?.count;
 };
 
 exports.removeMoviesByGroupId = async (groupId) => {
