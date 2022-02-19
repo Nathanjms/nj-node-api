@@ -1,5 +1,4 @@
 const Movie = require("../models/movie.model");
-const UserMovieGroup = require("../models/userMovieGroup.model");
 
 exports.index = async (req, res, next) => {
   try {
