@@ -23,7 +23,7 @@ exports.index = async (req, res, next) => {
     );
 
     movies = await Movie.getMovies(req.userId, groupId, false, limit, offset);
-    return res.status(200).send({
+    return res.send({
       movies: movies,
       nextPageUrl: nextPageUrl,
       prevPageUrl: prevPageUrl,
@@ -48,7 +48,7 @@ const computeUrls = (movieCount, limit, page, groupId) => {
   if (page > 1) {
     prevPageUrl = `/api/movies?page=${page - 1}&perPage=${limit}`;
     if (groupId) {
-      prevPageUrl ? `${prevPageUrl}&group_id=${groupId}` : null;
+      prevPageUrl += `&group_id=${groupId}`;
     }
   }
 
