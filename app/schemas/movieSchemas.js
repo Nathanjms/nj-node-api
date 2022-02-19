@@ -38,8 +38,11 @@ const store = {
     },
   },
   tmdbId: {
-    optional: true,
     trim: true,
+    notEmpty: {
+      errorMessage: "TMDB ID is required",
+      bail: true,
+    },
     isLength: {
       options: { max: 255 },
       errorMessage: "TMID must be no more than 255 characters.",

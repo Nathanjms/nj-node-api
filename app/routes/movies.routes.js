@@ -50,7 +50,6 @@ module.exports = (app) => {
     verifyUserMovieGroup.verifyGroupIfSet,
     movieController.index
   );
-  /* TODO: Add appropriate methods & middlewares to the below */
 
   // Show method for specific movie
   app.get(
@@ -63,6 +62,7 @@ module.exports = (app) => {
   app.post(
     "/api/movies",
     checkAndValidateSchema(movieSchemas.store),
+    verifyUserMovieGroup.verifyGroupIfSet,
     movieController.store
   );
   // Mark movie as seen

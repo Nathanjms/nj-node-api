@@ -59,3 +59,7 @@ exports.removeMoviesByGroupId = async (groupId) => {
 exports.update = async (id, updateObject) => {
   return await pg(table).update(updateObject).where({ id: id });
 };
+
+exports.insert = async (insertObject) => {
+  return await pg(table).insert(insertObject, "id");
+};

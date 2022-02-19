@@ -1,4 +1,5 @@
 const Movie = require("../models/movie.model");
+const UserMovieGroup = require("../models/userMovieGroup.model");
 
 exports.index = async (req, res, next) => {
   try {
@@ -29,7 +30,16 @@ exports.show = async (req, res, next) => {
 exports.store = async (req, res, next) => {
   try {
     // Add new movie
-    return res.send({ message: "store" });
+    let newMovie = await Movie.insert({
+      title: req.body.title,
+      tmdb_id: req.body?.tmdbId ? req.body.tmdbId : null,
+      poster_path: req.body?.posterPath ? req.body.posterPath : null,
+      group_id: req.body?.groupId ? req.body.groupId : null,
+      created_by: req.userId,
+    });
+
+    let newMovieId = newMovie[0]?.id;
+    return res.send({ success: true, movieId: newMovieId });
   } catch (error) {
     next(error);
   }
