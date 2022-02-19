@@ -96,6 +96,19 @@ const review = {
     },
     toInt: true,
   },
+  rating: {
+    in: ["body"],
+    notEmpty: {
+      errorMessage: "Rating is required",
+      bail: true,
+    },
+    isInt: {
+      errorMessage: "Rating must be an integer between 1 and 5.",
+      options: { min: 1, max: 5 },
+      bail: true,
+    },
+    toInt: true,
+  },
 };
 
 module.exports = { index, show, store, markAsSeen, review };

@@ -16,10 +16,10 @@ exports.index = async (req, res, next) => {
 
 exports.show = async (req, res, next) => {
   try {
-    // Return details about one movie (already have details from request)
     if (!req?.movie) {
       throw new Error("Movie not assigned correctly in middleware");
     }
+    // Return details about one movie (already have details from request)
     return res.send({ movie: req.movie });
   } catch (error) {
     next(error);
@@ -41,7 +41,7 @@ exports.markAsSeen = async (req, res, next) => {
       throw new Error("Movie not assigned correctly in middleware");
     }
     // Mark Movie As Seen
-    await Movie.update(req?.movie?.id, { seen: req.body.seen });
+    await Movie.update(req.movie.id, { seen: req.body.seen });
     return res.send({ success: true });
   } catch (error) {
     next(error);
@@ -50,8 +50,12 @@ exports.markAsSeen = async (req, res, next) => {
 
 exports.review = async (req, res, next) => {
   try {
-    // Review movie
-    return res.send({ message: "review" });
+    if (!req?.movie) {
+      throw new Error("Movie not assigned correctly in middleware");
+    }
+    // Update movie with rating
+    await Movie.update(req?.movie?.id, { rating: req.body.rating });
+    return res.send({ success: true });
   } catch (error) {
     next(error);
   }
@@ -59,6 +63,9 @@ exports.review = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
+    if (!req?.movie) {
+      throw new Error("Movie not assigned correctly in middleware");
+    }
     // Delete movie  (mark as deleted)
     return res.send({ message: "delete" });
   } catch (error) {
