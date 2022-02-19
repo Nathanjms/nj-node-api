@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-02-18T13:14:01.536Z
+__export_date: 2022-02-19T09:57:44.205Z
 __export_source: insomnia.desktop.app:v2021.7.2
 resources:
   - _id: req_c1dbea22a9b44af1a67723904cf72035
@@ -134,7 +134,7 @@ resources:
     _type: request
   - _id: req_2cee18d7048a44f28f959cd9986ad028
     parentId: fld_fcd04b56047d40e1870003bb208a4015
-    modified: 1645190024043
+    modified: 1645195441356
     created: 1644708631640
     url: "{{ _.baseUrl }}/api/movies"
     name: Get Movies
@@ -175,9 +175,110 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1645178606728
     _type: request_group
+  - _id: req_c6b06082d7ba444399d6ea87fe40984c
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645197088117
+    created: 1645190554322
+    url: "{{ _.baseUrl }}/api/movies/1"
+    name: Get Movie by ID
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644512225569.6094
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_581060aad8ee48c996bbab67a568fcee
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645264628670
+    created: 1645195446417
+    url: "{{ _.baseUrl }}/api/movies/mark-seen"
+    name: Mark Seen
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_02d0d125e9544571b8f7473da3be6e4a
+          name: movieId
+          value: "6"
+          description: ""
+        - id: pair_23ca540006bf40bb92b6120f75a35252
+          name: seen
+          value: "0"
+          description: ""
+          disabled: false
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644507234317.7266
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_da6b3b0cd0934578afd1d624da657fbf
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645264623474
+    created: 1645195450061
+    url: "{{ _.baseUrl }}/api/movies/review"
+    name: Review
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_753a5a315459498f95784602e66b710b
+          name: movieId
+          value: "6"
+          description: ""
+        - id: pair_e0ba214ba4b946018fe5cef8a5411946
+          name: rating
+          value: "5"
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644504738691.7852
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_439cc8734ac7412da689e989742e58d4
     parentId: fld_5306c9fa071d4387b9bde03d68bb1fad
-    modified: 1645190018201
+    modified: 1645264598648
     created: 1644708715438
     url: "{{ _.baseUrl }}/api/movies/groups"
     name: Get User Movie Groups
@@ -349,7 +450,7 @@ resources:
     name: New Environment
     data:
       baseUrl: http://localhost:3002
-      authToken: token
+      authToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MTg3MzQ4LCJleHAiOjE2NDUyNzM3NDh9.HCSw0Ee0M6V4tc8HzlEQSbANxgNFRwh7f65J-U1By4s
       superSecretSignUpKey: signupdev
     dataPropertyOrder:
       "&":
