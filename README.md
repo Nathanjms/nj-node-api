@@ -16,6 +16,8 @@ I recommend using [Insomnia](https://insomnia.rest/) to handle your rest API cal
    1. Run `npm run dev` to start the app.
    1. Go to `http://localhost:3002` to see the app.
    1. The credentials from docker are the ones filled in in the `.env.example`, so the database connection should work immediately.
+1. Import the insomnia_endpoints.yaml into Insomnia for a list of endpoints.
+   1. Update the environment with the bearer token obtained by the login endpoint.
 
 ### Migrations
 

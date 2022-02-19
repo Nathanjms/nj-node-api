@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-02-19T15:01:31.521Z
+__export_date: 2022-02-19T16:43:25.661Z
 __export_source: insomnia.desktop.app:v2021.7.2
 resources:
   - _id: req_c1dbea22a9b44af1a67723904cf72035
@@ -134,25 +134,15 @@ resources:
     _type: request
   - _id: req_2cee18d7048a44f28f959cd9986ad028
     parentId: fld_fcd04b56047d40e1870003bb208a4015
-    modified: 1645282869896
+    modified: 1645288973686
     created: 1644708631640
-    url: "{{ _.baseUrl }}/api/movies"
+    url: "{{ _.baseUrl }}/api/movies?page=1&perPage=10"
     name: Get Movies
     description: ""
     method: GET
-    body:
-      mimeType: application/x-www-form-urlencoded
-      params:
-        - id: pair_83d6e31bed7d4540a763a7fd273b768c
-          name: groupId
-          value: "12"
-          description: ""
-          disabled: true
+    body: {}
     parameters: []
-    headers:
-      - name: Content-Type
-        value: application/x-www-form-urlencoded
-        id: pair_074edb85958740b3a2a968c29ce5bb23
+    headers: []
     authentication:
       type: bearer
       token: "{{ _.authToken }}"
@@ -177,7 +167,7 @@ resources:
     _type: request_group
   - _id: req_90c1af3a4754442da30a184b770c3184
     parentId: fld_fcd04b56047d40e1870003bb208a4015
-    modified: 1645282870992
+    modified: 1645283861955
     created: 1645279392633
     url: "{{ _.baseUrl }}/api/movies"
     name: Store
@@ -520,7 +510,7 @@ resources:
     name: Dev Node
     data:
       baseUrl: http://localhost:3002
-      authToken: BEARERTOKEN
+      authToken: TOKEN
       superSecretSignUpKey: signupdev
     dataPropertyOrder:
       "&":
