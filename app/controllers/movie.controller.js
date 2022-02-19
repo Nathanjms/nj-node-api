@@ -3,15 +3,56 @@ const Movie = require("../models/movie.model");
 exports.index = async (req, res, next) => {
   try {
     let movies = {};
-    if (req.groupId) {
-      movies = await Movie.getMoviesByGroupId(req.groupId);
-    } else {
-      movies = await Movie.getMoviesByUserId(req.userId);
-    }
-    return res.status(200).send({ movies: movies });
+    let movieCount = 0;
+
+    // Assign group ID if set
+    let groupId = req?.groupId ? req.groupId : null;
+
+    // Pagination variables
+    let page = req.body?.page ? req.body.page : req.query.page;
+    let limit = req.body?.perPage ? req.body.perPage : req.query.perPage;
+    let offset = limit * (page - 1);
+
+    movieCount = Number(await Movie.getMovieCount(req.userId, groupId));
+
+    let { nextPageUrl, prevPageUrl } = computeUrls(
+      movieCount,
+      limit,
+      page,
+      groupId
+    );
+
+    movies = await Movie.getMovies(req.userId, groupId, false, limit, offset);
+    return res.status(200).send({
+      movies: movies,
+      nextPageUrl: nextPageUrl,
+      prevPageUrl: prevPageUrl,
+    });
   } catch (error) {
     next(error);
   }
+};
+
+const computeUrls = (movieCount, limit, page, groupId) => {
+  let nextPageUrl = null;
+  let prevPageUrl = null;
+
+  // Next Page URL
+  if (movieCount > limit * page) {
+    nextPageUrl = `/api/movies?page=${page + 1}&perPage=${limit}`;
+    if (groupId) {
+      nextPageUrl += `&group_id=${groupId}`;
+    }
+  }
+  // Prev Page URL:
+  if (page > 1) {
+    prevPageUrl = `/api/movies?page=${page - 1}&perPage=${limit}`;
+    if (groupId) {
+      prevPageUrl ? `${prevPageUrl}&group_id=${groupId}` : null;
+    }
+  }
+
+  return { nextPageUrl: nextPageUrl, prevPageUrl: prevPageUrl };
 };
 
 exports.show = async (req, res, next) => {
