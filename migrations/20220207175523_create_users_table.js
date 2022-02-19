@@ -9,7 +9,7 @@ exports.up = function (knex) {
     table.text("password").notNullable();
     table.string("name", 255).notNullable();
     table.timestamps(true, true);
-    table.timestamp('deleted_at').defaultTo(null);
+    table.timestamp("deleted_at").defaultTo(null);
   });
 };
 

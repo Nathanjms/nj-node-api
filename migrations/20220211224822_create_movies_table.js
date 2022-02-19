@@ -19,7 +19,7 @@ exports.up = function (knex) {
       .index()
       .defaultTo(null)
       .references("id")
-      .inTable("user_groups");
+      .inTable("user_movie_groups");
     table.integer("rating");
     table.boolean("seen").defaultTo(false).notNullable();
     table

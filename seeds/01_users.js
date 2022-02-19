@@ -13,7 +13,6 @@ exports.seed = function (knex) {
       let insertArray = [];
       for (let i = 1; i <= 10; i++) {
         insertArray.push({
-          id: i,
           email: `nj${i}@test.com`,
           password: bcrypt.hashSync("123456", 8),
           name: `NJ${i}`,

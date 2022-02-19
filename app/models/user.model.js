@@ -7,10 +7,6 @@ const selectColumns = columnWhitelist.map((element) => {
   return table + "." + element;
 });
 
-const isNotDeleted = (queryBuilder, columnName = "deleted_at") => {
-  queryBuilder.where(columnName, null);
-};
-
 exports.insertUser = async (name, email, password) => {
   await pg(table)
     .insert({
@@ -27,24 +23,27 @@ exports.insertUser = async (name, email, password) => {
 };
 
 exports.getUserFromEmail = async (email, includeDeleted = false) => {
-  let user = pg(table)
+  return await pg(table)
     .select(selectColumns)
     .from("users")
-    .where("email", email);
-
-  if (!includeDeleted) {
-    user = user.modify(isNotDeleted);
-  }
-
-  return await user.first();
+    .where("email", email)
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ [`${table}.deleted_at`]: null });
+      }
+    })
+    .first();
 };
 
 exports.getUserFromId = async (id, includeDeleted = false) => {
-  let user = pg(table).select(selectColumns).from("users").where("id", id);
-
-  if (!includeDeleted) {
-    user = user.modify(isNotDeleted);
-  }
-
-  return await user.first();
+  return await pg(table)
+    .select(selectColumns)
+    .from("users")
+    .where("id", id)
+    .modify((qB) => {
+      if (!includeDeleted) {
+        qB.where({ [`${table}.deleted_at`]: null });
+      }
+    })
+    .first();
 };
