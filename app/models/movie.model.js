@@ -31,7 +31,7 @@ exports.getById = async (id) => {
 exports.getMoviesByUserId = async (userId, includeDeleted = false) => {
   return await pg(table)
     .select(selectColumns)
-    .where("user_id", userId)
+    .where({ user_id: userId, group_id: null })
     .modify((qB) => {
       if (!includeDeleted) {
         qB.where({ [`${table}.deleted_at`]: null });
