@@ -75,8 +75,10 @@ exports.remove = async (groupId) => {
   });
 };
 
-exports.removeUserFromGroup = async (userId) => {
-  return await pg("users_movie_groups_link").where({ user_id: userId }).del();
+exports.removeUserFromGroup = async (userId, groupId) => {
+  return await pg("users_movie_groups_link")
+    .where({ user_id: userId, group_id: groupId })
+    .del();
 };
 
 exports.countUsersInGroup = async (groupId) => {
