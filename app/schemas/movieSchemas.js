@@ -8,6 +8,24 @@ const index = {
     },
     toInt: true,
   },
+  page: {
+    in: ["query", "body"],
+    isInt: {
+      errorMessage: "Page must be an integer.",
+      bail: true,
+      options: { min: 1 },
+    },
+    toInt: true,
+  },
+  perPage: {
+    in: ["query", "body"],
+    isInt: {
+      errorMessage: "Per Page must be an integer.",
+      bail: true,
+      options: { min: 1, max: 50 },
+    },
+    toInt: true,
+  },
 };
 
 const show = {
