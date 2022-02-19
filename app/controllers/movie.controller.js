@@ -32,7 +32,7 @@ exports.store = async (req, res, next) => {
     // Add new movie
     let newMovie = await Movie.insert({
       title: req.body.title,
-      tmdb_id: req.body?.tmdbId ? req.body.tmdbId : null,
+      tmdb_id: req.body.tmdbId,
       poster_path: req.body?.posterPath ? req.body.posterPath : null,
       group_id: req.body?.groupId ? req.body.groupId : null,
       created_by: req.userId,
