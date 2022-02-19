@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-02-19T09:57:44.205Z
+__export_date: 2022-02-19T10:02:51.810Z
 __export_source: insomnia.desktop.app:v2021.7.2
 resources:
   - _id: req_c1dbea22a9b44af1a67723904cf72035
@@ -242,7 +242,7 @@ resources:
     _type: request
   - _id: req_da6b3b0cd0934578afd1d624da657fbf
     parentId: fld_fcd04b56047d40e1870003bb208a4015
-    modified: 1645264623474
+    modified: 1645264804965
     created: 1645195450061
     url: "{{ _.baseUrl }}/api/movies/review"
     name: Review
@@ -268,6 +268,34 @@ resources:
       type: bearer
       token: "{{ _.authToken }}"
     metaSortKey: -1644504738691.7852
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d3f6069f89544ea4b941248219282494
+    parentId: fld_fcd04b56047d40e1870003bb208a4015
+    modified: 1645264942155
+    created: 1645264810341
+    url: "{{ _.baseUrl }}/api/movies/7"
+    name: Remove
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+        id: pair_074edb85958740b3a2a968c29ce5bb23
+    authentication:
+      type: bearer
+      token: "{{ _.authToken }}"
+    metaSortKey: -1644503490878.8145
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -450,7 +478,7 @@ resources:
     name: New Environment
     data:
       baseUrl: http://localhost:3002
-      authToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MTg3MzQ4LCJleHAiOjE2NDUyNzM3NDh9.HCSw0Ee0M6V4tc8HzlEQSbANxgNFRwh7f65J-U1By4s
+      authToken: TOKEN
       superSecretSignUpKey: signupdev
     dataPropertyOrder:
       "&":

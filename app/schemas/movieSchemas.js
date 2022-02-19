@@ -111,4 +111,19 @@ const review = {
   },
 };
 
-module.exports = { index, show, store, markAsSeen, review };
+const remove = {
+  movieId: {
+    in: ["params"],
+    notEmpty: {
+      errorMessage: "Movie ID is required",
+      bail: true,
+    },
+    isInt: {
+      errorMessage: "Movie ID must be an integer.",
+      bail: true,
+    },
+    toInt: true,
+  },
+};
+
+module.exports = { index, show, store, markAsSeen, review, remove };

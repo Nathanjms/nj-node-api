@@ -75,6 +75,11 @@ module.exports = (app) => {
     verifyMovie.canUserAccessMovie,
     movieController.review
   );
-  // mark movie as deleted
-  app.patch("/api/movies/delete", movieController.delete);
+  // Mark movie as deleted
+  app.delete(
+    "/api/movies/:movieId",
+    checkAndValidateSchema(movieSchemas.remove),
+    verifyMovie.canUserAccessMovie,
+    movieController.remove
+  );
 };

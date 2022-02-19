@@ -61,13 +61,14 @@ exports.review = async (req, res, next) => {
   }
 };
 
-exports.delete = async (req, res, next) => {
+exports.remove = async (req, res, next) => {
   try {
     if (!req?.movie) {
       throw new Error("Movie not assigned correctly in middleware");
     }
     // Delete movie  (mark as deleted)
-    return res.send({ message: "delete" });
+    await Movie.update(req?.movie?.id, { deleted_at: "NOW()" });
+    return res.send({ success: true });
   } catch (error) {
     next(error);
   }
