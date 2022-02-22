@@ -20,7 +20,7 @@ const index = {
   perPage: {
     in: ["query", "body"],
     isInt: {
-      errorMessage: "Per Page must be an integer.",
+      errorMessage: "Per Page must be an integer between 1 and 50.",
       bail: true,
       options: { min: 1, max: 50 },
     },
