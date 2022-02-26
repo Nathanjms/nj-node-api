@@ -3,9 +3,17 @@ import express from "express";
 
 const app = express();
 
+const allowedOrigins = ['https://*.nathanjms.co.uk', 'http://localhost:3000']
+
 const corsOptions = {
-  origin: "*.nathanjms.co.uk",
-};
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(cors(corsOptions));
 // Parse requests of content-type - application/json
