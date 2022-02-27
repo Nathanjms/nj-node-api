@@ -5,7 +5,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://*.nathanjms.co.uk"],
+    origin: [/\.nathanjms\.co\.uk$/, /localhost\:[0-9]*$/],
   })
 );
 // Parse requests of content-type - application/json
