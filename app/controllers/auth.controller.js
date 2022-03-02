@@ -25,7 +25,9 @@ exports.signIn = async (req, res, next) => {
     var token = jwt.sign({ id: req.userId }, config.secret, {
       expiresIn: expiresIn,
     });
-    return res.status(200).send({ token: token, expiresIn: expiresIn });
+    let expiryDate = new Date();
+    let expiryDateMs = expiryDate.valueOf() + expiresIn * 1000; // Format date to timestamp in ms and send in response.
+    return res.status(200).send({ token: token, expiryDate: expiryDateMs });
   } catch (error) {
     next(error);
   }
