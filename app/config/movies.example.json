@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Hot Fuzz",
+    "tmdb_id": 4638,
+    "poster_path": "/zPib4ukTSdXvHP9pxGkFCe34f3y.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": true,
+    "created_by": 1
+  },
+  {
+    "title": "The Grand Budapest Hotel",
+    "tmdb_id": 120467,
+    "poster_path": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "What We Do in the Shadows",
+    "tmdb_id": 246741,
+    "poster_path": "/muF9QsPLyw4u0bL56mlTkdKHytD.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": true,
+    "created_by": 1
+  },
+  {
+    "title": "Tag",
+    "tmdb_id": 455980,
+    "poster_path": "/eXXpuW2xaq5Aen9N5prFlARVIvr.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "Bee Movie",
+    "tmdb_id": 5559,
+    "poster_path": "/rYBaXgvTKFS8iZC7Wr8SMomSauQ.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": true,
+    "created_by": 1
+  },
+  {
+    "title": "The Darjeeling Limited",
+    "tmdb_id": 4538,
+    "poster_path": "/oSW5OVXTulaIXcoNwJAp5YEKpbP.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "Star Wars",
+    "tmdb_id": 11,
+    "poster_path": "/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "The Golden Compass",
+    "tmdb_id": 2268,
+    "poster_path": "/lyaS7S4emzEaYUcSnCvyqfJpOcA.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "The Matrix Resurrections",
+    "tmdb_id": 624860,
+    "poster_path": "/8c4a8kE7PizaGQQnditMmI1xbRp.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  },
+  {
+    "title": "Zoolander",
+    "tmdb_id": 9398,
+    "poster_path": "/qdrbSneHZjJG2Dj0hhBxzzAo4HB.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": true,
+    "created_by": 1
+  },
+  {
+    "title": "Don't Look Up",
+    "tmdb_id": 646380,
+    "poster_path": "/th4E1yqsE8DGpAseLiUrI60Hf8V.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": true,
+    "created_by": 1
+  },
+  {
+    "title": "Pirates of the Caribbean: At World's End",
+    "tmdb_id": 285,
+    "poster_path": "/2YMnBRh8F6fDGCCEIPk9Hb0cEyB.jpg",
+    "group_id": null,
+    "rating": null,
+    "seen": false,
+    "created_by": 1
+  }
+]
