@@ -9,12 +9,6 @@ exports.up = function (knex) {
     table.string("tmdb_id", 255).notNullable();
     table.string("poster_path", 255);
     table
-      .integer("user_id")
-      .index()
-      .defaultTo(null)
-      .references("id")
-      .inTable("users");
-    table
       .integer("group_id")
       .index()
       .defaultTo(null)

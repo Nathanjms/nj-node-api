@@ -42,7 +42,7 @@ exports.getMovies = async (
       if (groupId) {
         qB.where("group_id", groupId);
       } else {
-        qB.where({ user_id: userId, group_id: null });
+        qB.where({ created_by: userId, group_id: null });
       }
       // Handle includeDeleted
       if (!includeDeleted) {
@@ -61,7 +61,7 @@ exports.getMovieCount = async (userId, groupId, includeDeleted = false) => {
         if (groupId) {
           qB.where({ group_id: groupId });
         } else {
-          qB.where({ user_id: userId, group_id: null });
+          qB.where({ created_by: userId, group_id: null });
         }
         // Handle includeDeleted
         if (!includeDeleted) {
