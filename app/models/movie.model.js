@@ -15,6 +15,7 @@ const columnWhitelist = [
   "seen",
   "group_id",
   "created_by",
+  "backdrop_path",
 ];
 
 const selectColumns = columnWhitelist.map((element) => {

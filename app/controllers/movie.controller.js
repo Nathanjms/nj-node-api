@@ -74,6 +74,7 @@ exports.store = async (req, res, next) => {
       title: req.body.title,
       tmdb_id: req.body.tmdbId,
       poster_path: req.body?.posterPath ? req.body.posterPath : null,
+      backdrop_path: req.body?.backdropPath ? req.body.backdropPath : null,
       group_id: req.body?.groupId ? req.body.groupId : null,
       created_by: req.userId,
     });
