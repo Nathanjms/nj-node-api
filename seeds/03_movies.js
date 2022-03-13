@@ -9,7 +9,7 @@ exports.seed = function (knex) {
     .then(function () {
       // Build array of entries
       let movies = require("../app/config/movies.example.json");
-      let insertArray;
+      let insertArray = [];
       movies.forEach((movie) => {
         insertArray.push({
           title: movie.title,
