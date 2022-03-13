@@ -8,13 +8,28 @@ exports.seed = function (knex) {
     .del()
     .then(function () {
       // Build array of entries
-      let insertArray = require("../app/config/movies.example.json");
+      let movies = require("../app/config/movies.example.json");
+      let insertArray;
+      movies.forEach((movie) => {
+        insertArray.push({
+          title: movie.title,
+          tmdb_id: movie.tmdb_id,
+          poster_path: movie.poster_path,
+          backdrop_path: movie.backdrop_path,
+          group_id: movie.group_id,
+          seen: movie.seen,
+          created_by: movie.created_by,
+          rating: movie.rating,
+        })
+      })
       for (let i = 11; i <= 20; i++) {
         let seen = i % 2; // 50% chance of marking as seen
+        // Seed fake movies for groups (for now)
         insertArray.push({
           title: `Movie ${i}`,
           tmdb_id: ``,
-          poster_path: ``,
+          poster_path: null,
+          backdrop_path: null,
           group_id: 1,
           seen: seen,
           created_by: 1,
