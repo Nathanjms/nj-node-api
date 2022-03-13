@@ -15,6 +15,7 @@ const columnWhitelist = [
   "seen",
   "group_id",
   "created_by",
+  "backdrop_path",
 ];
 
 const selectColumns = columnWhitelist.map((element) => {
@@ -50,7 +51,8 @@ exports.getMovies = async (
       }
     })
     .limit(limit)
-    .offset(offset);
+    .offset(offset)
+    .orderByRaw("RANDOM()");
 };
 
 exports.getMovieCount = async (userId, groupId, includeDeleted = false) => {
