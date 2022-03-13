@@ -74,6 +74,14 @@ const store = {
       errorMessage: "Poster path must be no more than 255 characters.",
     },
   },
+  backdropPath: {
+    optional: true,
+    trim: true,
+    isLength: {
+      options: { max: 255 },
+      errorMessage: "Poster path must be no more than 255 characters.",
+    },
+  },
   groupId: {
     optional: true,
     isInt: {
