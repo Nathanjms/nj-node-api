@@ -55,7 +55,7 @@ exports.getMovies = async (
     })
     .limit(limit)
     .offset(offset)
-    .orderByRaw("RANDOM()");
+    .orderBy("id", "desc");
 };
 
 exports.getMovieCount = async (
