@@ -58,10 +58,16 @@ exports.getMovies = async (
     .orderByRaw("RANDOM()");
 };
 
-exports.getMovieCount = async (userId, groupId, includeDeleted = false) => {
+exports.getMovieCount = async (
+  userId,
+  groupId,
+  includeDeleted = false,
+  watched = false
+) => {
   return (
     await pg(table)
       .modify((qB) => {
+        qB.where("seen", watched);
         // Handle either group or user ID
         if (groupId) {
           qB.where({ group_id: groupId });

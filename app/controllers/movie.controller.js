@@ -13,7 +13,7 @@ exports.index = async (req, res, next) => {
     let limit = req.body?.perPage ? req.body.perPage : req.query.perPage;
     let offset = limit * (page - 1);
 
-    movieCount = Number(await Movie.getMovieCount(req.userId, groupId));
+    movieCount = Number(await Movie.getMovieCount(req.userId, groupId, req.query.watched));
 
     let { nextPageUrl, prevPageUrl } = computeUrls(
       movieCount,
