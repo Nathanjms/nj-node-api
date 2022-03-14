@@ -8,6 +8,14 @@ const index = {
     },
     toInt: true,
   },
+  watched: {
+    in: ["query", "body"],
+    isBoolean: {
+      errorMessage: "Page must be a boolean.",
+      bail: true,
+    },
+    toBoolean: true,
+  },
   page: {
     in: ["query", "body"],
     isInt: {

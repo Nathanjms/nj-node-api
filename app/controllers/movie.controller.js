@@ -22,7 +22,7 @@ exports.index = async (req, res, next) => {
       groupId
     );
 
-    movies = await Movie.getMovies(req.userId, groupId, false, limit, offset);
+    movies = await Movie.getMovies(req.userId, groupId, false, req.query.watched, limit, offset);
     return res.send({
       movies: movies,
       nextPageUrl: nextPageUrl,

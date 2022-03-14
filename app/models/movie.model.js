@@ -34,12 +34,14 @@ exports.getMovies = async (
   userId,
   groupId,
   includeDeleted = false,
+  watched = false,
   limit = 10,
   offset = 0
 ) => {
   return await pg(table)
     .select(selectColumns)
     .modify((qB) => {
+      qB.where("seen", watched);
       // Handle either group or user ID
       if (groupId) {
         qB.where("group_id", groupId);
