@@ -15,6 +15,15 @@ exports.index = async (req, res, next) => {
 
     movieCount = Number(await Movie.getMovieCount(req.userId, groupId, req.query.watched));
 
+    // If no movies, no need to continue
+    if (!movieCount) {
+      return res.send({
+        movies: [],
+        nextPageUrl: null,
+        prevPageUrl: null,
+      })
+    }
+
     let { nextPageUrl, prevPageUrl } = computeUrls(
       movieCount,
       limit,
