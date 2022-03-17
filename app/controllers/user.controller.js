@@ -6,7 +6,9 @@ exports.userInfo = async (req, res, next) => {
     if (!user) {
       return res.status(404).send({ error_message: "User not found." });
     }
-    return res.status(200).send({ name: user.name, email: user.email });
+    return res
+      .status(200)
+      .send({ name: user.name, email: user.email, id: req.userId });
   } catch (error) {
     next(error);
   }
