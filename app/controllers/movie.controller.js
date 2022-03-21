@@ -14,7 +14,7 @@ exports.index = async (req, res, next) => {
     let offset = limit * (page - 1);
 
     movieCount = Number(
-      await Movie.getMovieCount(req.userId, groupId, req.query.watched)
+      await Movie.getMovieCount(req.userId, groupId, false, req.query.watched)
     );
 
     // If no movies, no need to continue
