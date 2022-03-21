@@ -13,7 +13,9 @@ exports.index = async (req, res, next) => {
     let limit = req.body?.perPage ? req.body.perPage : req.query.perPage;
     let offset = limit * (page - 1);
 
-    movieCount = Number(await Movie.getMovieCount(req.userId, groupId, req.query.watched));
+    movieCount = Number(
+      await Movie.getMovieCount(req.userId, groupId, req.query.watched)
+    );
 
     // If no movies, no need to continue
     if (!movieCount) {
@@ -21,17 +23,25 @@ exports.index = async (req, res, next) => {
         movies: [],
         nextPageUrl: null,
         prevPageUrl: null,
-      })
+      });
     }
 
     let { nextPageUrl, prevPageUrl } = computeUrls(
       movieCount,
       limit,
       page,
-      groupId
+      groupId,
+      req?.query?.watched
     );
 
-    movies = await Movie.getMovies(req.userId, groupId, false, req.query.watched, limit, offset);
+    movies = await Movie.getMovies(
+      req.userId,
+      groupId,
+      false,
+      req.query.watched,
+      limit,
+      offset
+    );
     return res.send({
       movies: movies,
       nextPageUrl: nextPageUrl,
@@ -42,20 +52,24 @@ exports.index = async (req, res, next) => {
   }
 };
 
-const computeUrls = (movieCount, limit, page, groupId) => {
+const computeUrls = (movieCount, limit, page, groupId, watched) => {
   let nextPageUrl = null;
   let prevPageUrl = null;
 
   // Next Page URL
   if (movieCount > limit * page) {
-    nextPageUrl = `/api/movies?page=${page + 1}&perPage=${limit}`;
+    nextPageUrl = `/api/movies?page=${
+      page + 1
+    }&perPage=${limit}&watched=${watched}`;
     if (groupId) {
       nextPageUrl += `&group_id=${groupId}`;
     }
   }
   // Prev Page URL:
   if (page > 1) {
-    prevPageUrl = `/api/movies?page=${page - 1}&perPage=${limit}`;
+    prevPageUrl = `/api/movies?page=${
+      page - 1
+    }&perPage=${limit}&watched=${watched}`;
     if (groupId) {
       prevPageUrl += `&group_id=${groupId}`;
     }
