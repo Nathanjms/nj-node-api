@@ -11,7 +11,7 @@ const index = {
   watched: {
     in: ["query", "body"],
     isBoolean: {
-      errorMessage: "Page must be a boolean.",
+      errorMessage: "Watched must be a boolean.",
       bail: true,
     },
     toBoolean: true,
