@@ -4,6 +4,7 @@ exports.index = async (req, res, next) => {
   try {
     let movies = {};
     let movieCount = 0;
+    let orderBy = { column: "id", order: "desc" };
 
     // Assign group ID if set
     let groupId = req?.groupId ? req.groupId : null;
@@ -26,12 +27,20 @@ exports.index = async (req, res, next) => {
       });
     }
 
+    if (req?.query?.orderCol) {
+      orderBy.column = req.query.orderCol;
+    }
+    if (req?.query?.order) {
+      orderBy.order = req.query.order;
+    }
+
     let { nextPageUrl, prevPageUrl } = computeUrls(
       movieCount,
       limit,
       page,
       groupId,
-      req?.query?.watched
+      req?.query?.watched,
+      orderBy
     );
 
     movies = await Movie.getMovies(
@@ -40,7 +49,8 @@ exports.index = async (req, res, next) => {
       false,
       req.query.watched,
       limit,
-      offset
+      offset,
+      orderBy
     );
     return res.send({
       movies: movies,
@@ -52,27 +62,20 @@ exports.index = async (req, res, next) => {
   }
 };
 
-const computeUrls = (movieCount, limit, page, groupId, watched) => {
+const computeUrls = (movieCount, limit, page, groupId, watched, orderBy) => {
   let nextPageUrl = null;
   let prevPageUrl = null;
 
-  // Next Page URL
-  if (movieCount > limit * page) {
-    nextPageUrl = `/api/movies?page=${
-      page + 1
-    }&perPage=${limit}&watched=${watched}`;
-    if (groupId) {
-      nextPageUrl += `&group_id=${groupId}`;
-    }
+  let sharedParamsUrl = `/api/movies?perPage=${limit}&watched=${watched}&order=${orderBy.order}&orderCol=${orderBy.column}`;
+  if (groupId) {
+    sharedParamsUrl += `&group_id=${groupId}`;
   }
-  // Prev Page URL:
+
+  if (movieCount > limit * page) {
+    nextPageUrl = sharedParamsUrl + `&page=${page + 1}`;
+  }
   if (page > 1) {
-    prevPageUrl = `/api/movies?page=${
-      page - 1
-    }&perPage=${limit}&watched=${watched}`;
-    if (groupId) {
-      prevPageUrl += `&group_id=${groupId}`;
-    }
+    prevPageUrl = sharedParamsUrl + `&page=${page - 1}`;
   }
 
   return { nextPageUrl: nextPageUrl, prevPageUrl: prevPageUrl };
@@ -115,7 +118,7 @@ exports.markAsSeen = async (req, res, next) => {
       throw new Error("Movie not assigned correctly in middleware");
     }
     // Mark Movie As Seen
-    await Movie.update(req.movie.id, { seen: req.body.seen });
+    await Movie.update(req.movie.id, { seen: req.body.seen, seen_at: "NOW()" });
     return res.send({ success: true });
   } catch (error) {
     next(error);

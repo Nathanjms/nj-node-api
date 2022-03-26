@@ -41,4 +41,6 @@ const canUserAccessMovie = async (req, res, next) => {
   }
 };
 
-module.exports = { canUserAccessMovie };
+const validMovieOrderByColumns = ['created_at', 'title', 'seen_at']; // TODO: Handle seen_at when marked as seen
+
+module.exports = { canUserAccessMovie, validMovieOrderByColumns };

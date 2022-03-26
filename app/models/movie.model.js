@@ -36,7 +36,8 @@ exports.getMovies = async (
   includeDeleted = false,
   watched = false,
   limit = 10,
-  offset = 0
+  offset = 0,
+  orderBy = {column: "id", order: "desc"}
 ) => {
   return await pg(table)
     .select(selectColumns)
@@ -55,7 +56,7 @@ exports.getMovies = async (
     })
     .limit(limit)
     .offset(offset)
-    .orderBy("id", "desc");
+    .orderBy(orderBy.column, orderBy.order);
 };
 
 exports.getMovieCount = async (
