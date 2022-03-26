@@ -1,3 +1,5 @@
+const { validMovieOrderByColumns } = require("../middleware/verifyMovie");
+
 const index = {
   groupId: {
     in: ["query", "body"],
@@ -33,6 +35,24 @@ const index = {
       options: { min: 1, max: 50 },
     },
     toInt: true,
+  },
+  orderBy: {
+    in: ["query"],
+    trim: true,
+    isIn: {
+      errorMessage: "Order must be valid",
+      options: [validMovieOrderByColumns],
+      bail: true,
+    },
+  },
+  order: {
+    in: ["query"],
+    trim: true,
+    isIn: {
+      errorMessage: "Order must be valid",
+      options: ["asc", "desc"],
+      bail: true,
+    },
   },
 };
 
