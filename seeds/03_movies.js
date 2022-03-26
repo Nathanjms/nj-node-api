@@ -20,6 +20,7 @@ exports.seed = function (knex) {
           seen: movie.seen,
           created_by: movie.created_by,
           rating: movie.rating,
+          seen_at: movie.seen ? "NOW()" : null //TODO: Add this into the json instead to make the dates different
         })
       })
       for (let i = 11; i <= 20; i++) {

@@ -118,7 +118,7 @@ exports.markAsSeen = async (req, res, next) => {
       throw new Error("Movie not assigned correctly in middleware");
     }
     // Mark Movie As Seen
-    await Movie.update(req.movie.id, { seen: req.body.seen });
+    await Movie.update(req.movie.id, { seen: req.body.seen, seen_at: "NOW()" });
     return res.send({ success: true });
   } catch (error) {
     next(error);
