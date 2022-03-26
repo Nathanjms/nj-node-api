@@ -36,7 +36,7 @@ const index = {
     },
     toInt: true,
   },
-  orderBy: {
+  orderCol: {
     in: ["query"],
     trim: true,
     isIn: {

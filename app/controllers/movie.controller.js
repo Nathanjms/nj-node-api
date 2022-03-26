@@ -27,8 +27,8 @@ exports.index = async (req, res, next) => {
       });
     }
 
-    if (req?.query?.orderBy) {
-      orderBy.column = req.query.orderBy;
+    if (req?.query?.orderCol) {
+      orderBy.column = req.query.orderCol;
     }
     if (req?.query?.order) {
       orderBy.order = req.query.order;
@@ -66,7 +66,7 @@ const computeUrls = (movieCount, limit, page, groupId, watched, orderBy) => {
   let nextPageUrl = null;
   let prevPageUrl = null;
 
-  let sharedParamsUrl = `/api/movies?perPage=${limit}&watched=${watched}&order=${orderBy.order}&orderBy=${orderBy.column}`;
+  let sharedParamsUrl = `/api/movies?perPage=${limit}&watched=${watched}&order=${orderBy.order}&orderCol=${orderBy.column}`;
   if (groupId) {
     sharedParamsUrl += `&group_id=${groupId}`;
   }
