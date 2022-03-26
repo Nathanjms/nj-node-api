@@ -17,6 +17,7 @@ const columnWhitelist = [
   "created_by",
   "backdrop_path",
   "created_at",
+  "seen_at",
 ];
 
 const selectColumns = columnWhitelist.map((element) => {
@@ -37,7 +38,7 @@ exports.getMovies = async (
   watched = false,
   limit = 10,
   offset = 0,
-  orderBy = {column: "id", order: "desc"}
+  orderBy = { column: "id", order: "desc" }
 ) => {
   return await pg(table)
     .select(selectColumns)
