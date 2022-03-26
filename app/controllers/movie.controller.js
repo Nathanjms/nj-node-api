@@ -4,6 +4,7 @@ exports.index = async (req, res, next) => {
   try {
     let movies = {};
     let movieCount = 0;
+    let orderBy = { column: "id", order: "desc" };
 
     // Assign group ID if set
     let groupId = req?.groupId ? req.groupId : null;
@@ -26,12 +27,20 @@ exports.index = async (req, res, next) => {
       });
     }
 
+    if (req?.query?.orderBy) {
+      orderBy.column = req.query.orderBy;
+    }
+    if (req?.query?.order) {
+      orderBy.order = req.query.order;
+    }
+
     let { nextPageUrl, prevPageUrl } = computeUrls(
       movieCount,
       limit,
       page,
       groupId,
-      req?.query?.watched
+      req?.query?.watched,
+      orderBy
     );
 
     movies = await Movie.getMovies(
@@ -40,7 +49,8 @@ exports.index = async (req, res, next) => {
       false,
       req.query.watched,
       limit,
-      offset
+      offset,
+      orderBy
     );
     return res.send({
       movies: movies,
@@ -52,27 +62,21 @@ exports.index = async (req, res, next) => {
   }
 };
 
-const computeUrls = (movieCount, limit, page, groupId, watched) => {
+const computeUrls = (movieCount, limit, page, groupId, watched, orderBy) => {
   let nextPageUrl = null;
   let prevPageUrl = null;
 
+  let sharedParamsUrl = `/api/movies?perPage=${limit}&watched=${watched}&order=${orderBy.order}&orderBy=${orderBy.column}`;
+  if (groupId) {
+    sharedParamsUrl += `&group_id=${groupId}`;
+  }
+
   // Next Page URL
   if (movieCount > limit * page) {
-    nextPageUrl = `/api/movies?page=${
-      page + 1
-    }&perPage=${limit}&watched=${watched}`;
-    if (groupId) {
-      nextPageUrl += `&group_id=${groupId}`;
-    }
+    nextPageUrl = sharedParamsUrl + `&page=${page + 1}`;
   }
-  // Prev Page URL:
   if (page > 1) {
-    prevPageUrl = `/api/movies?page=${
-      page - 1
-    }&perPage=${limit}&watched=${watched}`;
-    if (groupId) {
-      prevPageUrl += `&group_id=${groupId}`;
-    }
+    prevPageUrl = sharedParamsUrl + `&page=${page - 1}`;
   }
 
   return { nextPageUrl: nextPageUrl, prevPageUrl: prevPageUrl };
