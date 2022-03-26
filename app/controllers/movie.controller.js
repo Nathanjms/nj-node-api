@@ -71,7 +71,6 @@ const computeUrls = (movieCount, limit, page, groupId, watched, orderBy) => {
     sharedParamsUrl += `&group_id=${groupId}`;
   }
 
-  // Next Page URL
   if (movieCount > limit * page) {
     nextPageUrl = sharedParamsUrl + `&page=${page + 1}`;
   }
