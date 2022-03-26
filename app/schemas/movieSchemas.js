@@ -50,7 +50,7 @@ const index = {
     trim: true,
     isIn: {
       errorMessage: "Order must be valid",
-      options: ["asc", "desc"],
+      options: [["asc", "desc"]],
       bail: true,
     },
   },
